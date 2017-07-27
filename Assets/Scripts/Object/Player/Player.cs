@@ -7,57 +7,37 @@ public class Player : BaseObject{
     public GameObject _shadow = null;
     public AnimationClip[] _clips;
 
-    private float   _moveLeftTime   = 0.0f;
-    private float   _velocity       = 0.0f;
-    private float   _currJumpHeight = 0.0f;
-    private Vector3 _moveDirection  = Vector3.zero;
+    
     private Animator _animator      = null;
 
-    const float _moveTime = 0.2f;
 	// Use this for initialization
 	void Start () {
+        base.Initialize();
+
         _animator       = GetComponent<Animator>();
-        _velocity       = 0.8f;
+        Camera.main.GetComponent<TargetCamera>().SetTarget(this);
+        OnMoveEndCallBack += () =>
+        {
+            _animator.SetBool("Rolling", false);
+        };
     }
 	
 	// Update is called once per frame
 	void Update () {
-        UpdateMove();
+        MoveUpdate();
 
         if( Input.GetKeyDown(KeyCode.Space))
         {
             _animator.SetTrigger("Attack");
         }
     }
-    private void UpdateMove()
+
+    protected override void MoveUpdate()
     {
-        _moveLeftTime -= Time.deltaTime;
         if (IsCanMove())
-            Move();
-        else
             MoveInput();
-    }
-    private void Move()
-    {
-        float distJump = 1.5f * _velocity * Time.deltaTime * GetGravity();
-        Vector3 moveDistance = _moveDirection * _velocity * Time.deltaTime;
-
-        this.   transform.Translate(moveDistance);
-        _shadow.transform.Translate(moveDistance);
-
-        if (_currJumpHeight + distJump > 0.0f)
-            _currJumpHeight += distJump;
         else
-        {
-            _moveLeftTime = 0.0f;
-        }
-        if(!IsCanMove())
-        {
-            distJump = -_currJumpHeight;
-            _currJumpHeight = 0.0f;
-            OnMoveEndCallBack();
-        }
-        transform.Translate(Vector3.up * distJump);
+            base.MoveUpdate();
     }
     private void MoveInput()
     {
@@ -68,42 +48,42 @@ public class Player : BaseObject{
             _animator.SetInteger("Direction", 1);
             direction.y += 1.0f;
         }
-        if (Input.GetKeyDown(KeyCode.S))
+        else if (Input.GetKeyDown(KeyCode.S))
         {
             _animator.SetInteger("Direction", -1);
             direction.y -= 1.0f;
         }
-        if (Input.GetKeyDown(KeyCode.A))
+        else if (Input.GetKeyDown(KeyCode.A))
         {
             _animator.SetInteger("Direction", 0);
             direction.x -= 1.0f;
-            transform.localScale =
-                new Vector3(-1.0f,
-                transform.localScale.y, transform.localScale.z);
         }
-        if (Input.GetKeyDown(KeyCode.D))
+        else if (Input.GetKeyDown(KeyCode.D))
         {
             _animator.SetInteger("Direction", 0);
             direction.x += 1.0f;
-
-            transform.localScale =
-                new Vector3(1.0f,
-                transform.localScale.y, transform.localScale.z);
+            if (transform.localScale.x < 0.0f)
+            {
+                transform.localScale = new Vector3(-transform.localScale.x, transform.localScale.y, transform.localScale.z);
+            }
         }
-        if( direction != Vector3.zero)
+        else if (Input.GetKeyDown(KeyCode.Q))
         {
-            _moveLeftTime = _moveTime;
+            direction.x = -1.0f;
+            direction.y = -1.0f;
+            _animator.SetBool("Rolling", true);
         }
-        _moveDirection = direction;
+        else if (Input.GetKeyDown(KeyCode.E))
+        {
+            direction.x = 1.0f;
+            direction.y = -1.0f;
+            _animator.SetBool("Rolling", true);
+        }
+            if ( direction != Vector3.zero)
+        {
+            _moveDirection = direction;
+            Move();
+        }
     }
 
-    private float GetGravity()
-    {
-        return _moveLeftTime > _moveTime * 0.5f ? 1.0f : -1.1f;
-    }
-
-    private bool IsCanMove()
-    {
-        return _moveLeftTime > 0.0f;
-    }
 }
