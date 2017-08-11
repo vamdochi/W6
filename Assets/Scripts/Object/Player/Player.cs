@@ -7,8 +7,10 @@ public class Player : BaseObject{
     public GameObject _shadow = null;
     public AnimationClip[] _clips;
 
-    
-    private Animator _animator      = null;
+
+    private const float _oriMoveTimeSec = 0.22f;
+    private const float _rollTimeSec    = 0.56f;
+    private Animator _animator          = null;
 
 	// Use this for initialization
 	void Start () {
@@ -42,6 +44,7 @@ public class Player : BaseObject{
     private void MoveInput()
     {
         Vector3 direction = Vector3.zero;
+        SetMoveTime(_oriMoveTimeSec);
 
         if (Input.GetKeyDown(KeyCode.W))
         {
@@ -69,17 +72,20 @@ public class Player : BaseObject{
         }
         else if (Input.GetKeyDown(KeyCode.Q))
         {
+            SetMoveTime(_rollTimeSec);
             direction.x = -1.0f;
             direction.y = -1.0f;
             _animator.SetBool("Rolling", true);
         }
         else if (Input.GetKeyDown(KeyCode.E))
         {
+            SetMoveTime(_rollTimeSec);
             direction.x = 1.0f;
             direction.y = -1.0f;
             _animator.SetBool("Rolling", true);
         }
-            if ( direction != Vector3.zero)
+
+        if ( direction  != Vector3.zero)
         {
             _moveDirection = direction;
             Move();

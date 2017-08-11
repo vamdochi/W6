@@ -18,14 +18,27 @@ public class BaseObject : MonoBehaviour {
     protected float _velocity = 0.0f;
 
     protected Vector3 _moveDirection = Vector3.zero;
-    protected   const float _moveTimeSec = 0.15f;
-    private     const float _jumpGuage = 0.0f;
+    protected   float _moveTimeSec = 0.0f;
+    private     const float _jumpGuage = 1.2f;
 
     protected virtual void Initialize()
     {
-        _velocity = TileManager.Get.GetTileDist() / _moveTimeSec;
+        SetMoveTime(0.22f);
     }
 
+    protected bool SetMoveTime( float moveTimeSec)
+    {
+        if (IsCanMove())
+        {
+            if (_moveTimeSec != moveTimeSec)
+            {
+                _moveTimeSec = moveTimeSec;
+                _velocity = TileManager.Get.GetTileDist() / _moveTimeSec;
+            }
+            return true;
+        }
+        return false;
+    }
     protected bool IsCanMove()
     {
         return _moveLeftTime <= 0.0f;
