@@ -39,14 +39,24 @@ public class TileManager : MonoBehaviour {
     {
         if( IsCanMove( row, col))
         {
-            _tiles[Object.Row, Object.Col].Object = null;
-            _tiles[row, col].Object = Object;
-
-            Object.Col = col;
-            Object.Row = row;
+            MoveObject( Object, row, col);
             return true;
         }
         return false;
+    }
+    public BaseObject GetObject( short row, short col)
+    {
+        return _tiles[row, col].Object;
+    }
+    public void MoveObject(BaseObject Object, short row, short col)
+    {
+        _tiles[Object.Row, Object.Col].Object = null;
+        _tiles[row, col].Object = Object;
+
+        Object.Col = col;
+        Object.Row = row;
+        Object.TargetMovePosition = _tiles[row, col].transform.position + new Vector3(0, -0.2f, 0);
+        Object.PrevMovePosition = Object.transform.position;
     }
     public bool IsCanMove( int row, int col)
     {

@@ -8,15 +8,14 @@ public class Player : BaseObject{
     public AnimationClip[] _clips;
 
 
+    private KeyCode _lastInputKey = KeyCode.None;
     private const float _oriMoveTimeSec = 0.22f;
-    private const float _rollTimeSec    = 0.56f;
-    private Animator _animator          = null;
+    private const float _rollTimeSec    = 0.5f;
 
 	// Use this for initialization
 	void Start () {
         base.Initialize();
 
-        _animator       = GetComponent<Animator>();
         Camera.main.GetComponent<TargetCamera>().SetTarget(this);
         OnMoveEndCallBack += () =>
         {
@@ -33,7 +32,64 @@ public class Player : BaseObject{
             _animator.SetTrigger("Attack");
         }
     }
+    private void InputUpdate()
+    {
+        if ( Input.GetKeyDown( KeyCode.W))
+        {
+            _lastInputKey = KeyCode.W;
+        }
+        else if (Input.GetKeyDown(KeyCode.S))
+        {
+            _lastInputKey = KeyCode.S;
+        }
+        else if (Input.GetKeyDown(KeyCode.A))
+        {
+            _lastInputKey = KeyCode.A;
+        }
+        else if (Input.GetKeyDown(KeyCode.D))
+        {
+            _lastInputKey = KeyCode.D;
+        }
+    }
+    protected override void AttackEnd()
+    {
+        short targetRow = (short)(Row + _moveDirection.x);
+        short targetCol = (short)(Col + _moveDirection.y);
 
+        var TargetObject = TileManager.Get.GetObject(targetRow, targetCol);
+        if( TargetObject != null)
+        {
+            TargetObject.OnHit(1.0f);
+        }
+        if( _lastInputKey != KeyCode.None)
+        {
+            KeyCode prevKeyCode = KeyCode.None;
+            if( _moveDirection.x == 0.0f)
+            {
+                if (_moveDirection.y > 0.0f)
+                {
+                    prevKeyCode = KeyCode.W;
+                }
+                else
+                    prevKeyCode = KeyCode.S;
+            }
+            else if (_moveDirection.y == 0.0f)
+            {
+                if (_moveDirection.x > 0.0f)
+                {
+                    prevKeyCode = KeyCode.D;
+                }
+                else
+                    prevKeyCode = KeyCode.A;
+            }
+
+            if(prevKeyCode == _lastInputKey)
+            {
+                return;
+            }
+        }
+        base.AttackEnd();
+    }
     protected override void MoveUpdate()
     {
         if (IsCanMove())
@@ -45,25 +101,21 @@ public class Player : BaseObject{
     {
         Vector3 direction = Vector3.zero;
         SetMoveTime(_oriMoveTimeSec);
-
+        
         if (Input.GetKeyDown(KeyCode.W))
         {
-            _animator.SetInteger("Direction", 1);
             direction.y += 1.0f;
         }
         else if (Input.GetKeyDown(KeyCode.S))
         {
-            _animator.SetInteger("Direction", -1);
             direction.y -= 1.0f;
         }
         else if (Input.GetKeyDown(KeyCode.A))
         {
-            _animator.SetInteger("Direction", 0);
             direction.x -= 1.0f;
         }
         else if (Input.GetKeyDown(KeyCode.D))
         {
-            _animator.SetInteger("Direction", 0);
             direction.x += 1.0f;
             if (transform.localScale.x < 0.0f)
             {
@@ -75,20 +127,41 @@ public class Player : BaseObject{
             SetMoveTime(_rollTimeSec);
             direction.x = -1.0f;
             direction.y = -1.0f;
-            _animator.SetBool("Rolling", true);
+        }
+        else if (Input.GetKeyDown(KeyCode.Z))
+        {
+            SetMoveTime(_rollTimeSec);
+            direction.x = -1.0f;
+            direction.y = 1.0f;
         }
         else if (Input.GetKeyDown(KeyCode.E))
         {
             SetMoveTime(_rollTimeSec);
             direction.x = 1.0f;
             direction.y = -1.0f;
-            _animator.SetBool("Rolling", true);
+        }
+        else if (Input.GetKeyDown(KeyCode.C))
+        {
+            SetMoveTime(_rollTimeSec);
+            direction.x = 1.0f;
+            direction.y = 1.0f;
         }
 
         if ( direction  != Vector3.zero)
         {
+            _animator.SetInteger("Direction", (int)direction.y);
+            if( direction.x != 0.0f && 
+                direction.y != 0.0f)
+            {
+                _animator.SetBool("Rolling", true);
+            }
             _moveDirection = direction;
-            Move();
+
+            if (!Move())
+            {
+                Attack();
+                _lastInputKey = KeyCode.None;
+            }
         }
     }
 
