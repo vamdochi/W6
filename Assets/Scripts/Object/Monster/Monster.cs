@@ -7,15 +7,15 @@ public class Monster : BaseObject {
     public float MoveDelaySec = 2.5f;
     // Use this for initialization
     void Start () {
-        _moveDirection.x = 1;
+//        _moveDirection.x = 1;
         base.Initialize();
-        StartCoroutine(MoveCorutine());
+//        StartCoroutine(MoveCorutine());
 	}
 	
 	// Update is called once per frame
 	protected override void Update () {
         base.Update();
-        MoveUpdate();
+//        MoveUpdate();
     }
     public IEnumerator MoveCorutine()
     {

@@ -9,7 +9,7 @@ public class GameManager : MonoBehaviour {
         const string playerPath = "Prefab/Character/Player/Player";
         const string rabbitPath = "Prefab/Character/Monster/rabbit";
         
-        CreateObject(Resources.Load(playerPath), 15, 15);
+        CreateObject(Resources.Load(playerPath), 0, 0);
         short gen = 14;
         for (int n = 0; n < 7; ++n)
         {
@@ -36,7 +36,6 @@ public class GameManager : MonoBehaviour {
                 return true;                
 
             Destroy(go); // 미래에 오브젝트들은.. 풀로 관리.. 해줘야함 ㅡㅡ;
-                         // 미래의 나한테 맡기는건 멍청한짓!
         }
         return false;
     }

@@ -7,7 +7,6 @@ public class Player : BaseObject{
     public GameObject _shadow = null;
     public AnimationClip[] _clips;
 
-
     private KeyCode _lastInputKey = KeyCode.None;
     private const float _oriMoveTimeSec = 0.22f;
     private const float _rollTimeSec    = 0.5f;
@@ -24,7 +23,7 @@ public class Player : BaseObject{
     }
 	
 	// Update is called once per frame
-	void Update () {
+	protected override void Update () {
         MoveUpdate();
 
         if( Input.GetKeyDown(KeyCode.Space))
