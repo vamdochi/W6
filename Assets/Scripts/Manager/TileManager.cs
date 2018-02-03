@@ -55,7 +55,7 @@ public class TileManager : MonoBehaviour {
 
         Object.Col = col;
         Object.Row = row;
-        Object.TargetMovePosition = _tiles[row, col].transform.position + new Vector3(0, -0.2f, 0);
+        Object.TargetMovePosition = _tiles[row, col].transform.position + new Vector3(0, 0.1f, 0);
         Object.PrevMovePosition = Object.transform.position;
     }
     public bool IsCanMove( int row, int col)

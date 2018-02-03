@@ -40,13 +40,15 @@ public class BaseObject : MonoBehaviour {
     {
         _spriteRenderer.color = new Color(1.0f, 0, 0);
     }
-    protected virtual void Initialize()
+    
+	protected virtual void Initialize()
     {
         Status = ActionStatus.IDLE;
         _animator = GetComponent<Animator>();
         _spriteRenderer = GetComponent<SpriteRenderer>();
         SetMoveTime(0.22f);
     }
+
     protected virtual void Update()
     {
         Color color = _spriteRenderer.color;
@@ -73,10 +75,12 @@ public class BaseObject : MonoBehaviour {
         }
         return false;
     }
-    protected bool IsCanMove()
+    
+	protected bool IsCanMove()
     {
         return _moveLeftTime <= 0.0f;
     }
+
     protected bool ChangeStatus( ActionStatus destStatus)
     {
         if( Status != destStatus)
@@ -123,6 +127,7 @@ public class BaseObject : MonoBehaviour {
         _animationEndHandler = null;
         yield break;
     }
+
     protected bool Attack()
     {
         if( ChangeStatus(ActionStatus.ATTACK) )
@@ -133,10 +138,12 @@ public class BaseObject : MonoBehaviour {
         }
         return false;
     }
+
     protected virtual void AttackEnd()
     {
         ChangeStatus(ActionStatus.IDLE);
     }
+
     protected bool Move()
     {
         if (_moveDirection != Vector3.zero && IsCanMove())
@@ -162,6 +169,7 @@ public class BaseObject : MonoBehaviour {
         }
         return false;
     }
+
     protected virtual void MoveUpdate()
     {
         float distJump = _currJumpHeight / _moveLeftTime;

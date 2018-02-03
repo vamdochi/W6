@@ -5,7 +5,6 @@ using UnityEngine;
 public class Player : BaseObject{
 
     public GameObject _shadow = null;
-    public AnimationClip[] _clips;
 
     private KeyCode _lastInputKey = KeyCode.None;
     private const float _oriMoveTimeSec = 0.22f;
@@ -24,6 +23,7 @@ public class Player : BaseObject{
 	
 	// Update is called once per frame
 	protected override void Update () {
+
         MoveUpdate();
 
         if( Input.GetKeyDown(KeyCode.Space))
@@ -31,7 +31,8 @@ public class Player : BaseObject{
             _animator.SetTrigger("Attack");
         }
     }
-    private void InputUpdate()
+    
+	private void InputUpdate()
     {
         if ( Input.GetKeyDown( KeyCode.W))
         {
@@ -50,7 +51,8 @@ public class Player : BaseObject{
             _lastInputKey = KeyCode.D;
         }
     }
-    protected override void AttackEnd()
+    
+	protected override void AttackEnd()
     {
         short targetRow = (short)(Row + _moveDirection.x);
         short targetCol = (short)(Col + _moveDirection.y);
@@ -89,13 +91,15 @@ public class Player : BaseObject{
         }
         base.AttackEnd();
     }
-    protected override void MoveUpdate()
+    
+	protected override void MoveUpdate()
     {
         if (IsCanMove())
             MoveInput();
         else
             base.MoveUpdate();
     }
+
     private void MoveInput()
     {
         Vector3 direction = Vector3.zero;
@@ -118,6 +122,7 @@ public class Player : BaseObject{
             direction.x += 1.0f;
             if (transform.localScale.x < 0.0f)
             {
+                GetComponent<Animator>().
                 transform.localScale = new Vector3(-transform.localScale.x, transform.localScale.y, transform.localScale.z);
             }
         }
