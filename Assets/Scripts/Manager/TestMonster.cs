@@ -12,6 +12,7 @@ public class TestMonster : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
     }
+
     void Test()
     {
         GetComponent<Animator>().SetBool("Test", true);
