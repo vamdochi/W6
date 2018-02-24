@@ -10,5 +10,7 @@ public static class ExtesnionMethod  {
         lhs = temp;
 
     }
-    public static bool Empty<T>( this List<T> lst ) { return lst.Count == 0; }
+    public static bool IsEmpty<T>( this List<T> lst ) { return lst.Count == 0; }
+
+    public static bool IsEmpty<T>( this T[] array ) { return array.Length == 0; }
 }

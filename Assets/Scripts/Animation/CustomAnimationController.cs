@@ -2,23 +2,11 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class AnimationClipOverrides : List<KeyValuePair<AnimationClip, AnimationClip>>
-{
-    public AnimationClipOverrides( int capacity) : base(capacity) { }
-
-    public AnimationClip this[string name]
-    {
-        get { return this.Find(pair => pair.Key.name.Equals(name)).Value; }
-        set
-        {
-            int index = this.FindIndex(x => x.Key.name.Equals(name));
-            if (index != -1)
-                this[index] = new KeyValuePair<AnimationClip, AnimationClip>(this[index].Key, value);
-        }
-    }
-}
 // 붙이는 오브젝트에 Animator 필요
+[System.Serializable]
 public class CustomAnimationController : MonoBehaviour {
+
+    public List<BaseAction> ActionList = new List<BaseAction>();
 
     private SimpleAnimation             _simpleAnimation;
     private Animator                    _animator;

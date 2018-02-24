@@ -4,8 +4,11 @@ using System.Collections.Generic;
 using UnityEditor;
 using UnityEngine;
 
-
+[Serializable]
 public class MoveAction : BaseAction {
+
+    public float speed { get; set; }
+
     private enum Move : int { Start = 0, TOP = 0, DOWN, BESIDE, MAX }
 
     protected override void LoadResource()
