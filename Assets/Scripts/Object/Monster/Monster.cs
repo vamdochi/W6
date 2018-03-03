@@ -27,14 +27,14 @@ public class Monster : BaseObject {
             {
                 if (Random.Range(0, 11) > 0)
                 {
-                    _moveDirection = Vector3.zero;
+                    MoveDirection = Vector3.zero;
                     if (Random.Range(0, 2) > 0)
                     {
-                        _moveDirection.x = Random.Range(0, 2) * 2 - 1;
+                        MoveDirection.ChangeProperty(Random.Range(0, 2) * 2 - 1, float.NaN, float.NaN);
                     }
                     else
                     {
-                        _moveDirection.y = Random.Range(0, 2) * 2 - 1;
+                        MoveDirection.ChangeProperty(float.NaN, Random.Range(0, 2) * 2 - 1, float.NaN);
                     }
                 }
                 Move();

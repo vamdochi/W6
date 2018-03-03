@@ -14,7 +14,6 @@ public class TargetCamera : MonoBehaviour {
         if (Object != null)
         {
             TargetObject = Object;
-            TargetObject.OnMoveEndCallBack += OnUpdateCamera;
         }
     }
 

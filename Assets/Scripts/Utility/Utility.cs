@@ -4,6 +4,20 @@ using UnityEngine;
 
 public static class Utility
 {
+    public static BaseAction.NormalDir VecToDir(Vector3 vDir)
+    {
+        if (vDir.y == 0)
+        {
+            return BaseAction.NormalDir.BESIDE;
+        }
+        else if (vDir.y > 0)
+        {
+            return BaseAction.NormalDir.TOP;
+        }
+
+        return BaseAction.NormalDir.DOWN;
+    }
+
     public static float linear(float start, float end, float value)
     {
         return Mathf.Lerp(start, end, value);

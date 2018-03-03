@@ -153,11 +153,11 @@ public partial class SimpleAnimation: MonoBehaviour
         }
     }
 
-    public bool Play(int index)
+    public bool Play(int index, float animTime)
     {
         m_Animator.enabled = true;
         Kick();
-        return m_Playable.Play(index);
+        return m_Playable.Play(index, animTime);
     }
 
     public bool Play(string stateName)

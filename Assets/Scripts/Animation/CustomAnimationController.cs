@@ -6,7 +6,7 @@ using UnityEngine;
 [System.Serializable]
 public class CustomAnimationController : MonoBehaviour {
 
-    public List<BaseAction> ActionList = new List<BaseAction>();
+    public string ResourcePath = "";
 
     private SimpleAnimation             _simpleAnimation;
     private Animator                    _animator;
@@ -21,7 +21,7 @@ public class CustomAnimationController : MonoBehaviour {
     // 추후 변경해야됨 !! 필수
     public void PlayAnimation( int index, float animTime)
     {
-        _simpleAnimation.Play( index );
+        _simpleAnimation.Play( index, animTime);
     }
 
     public void RemoveClip( int index )

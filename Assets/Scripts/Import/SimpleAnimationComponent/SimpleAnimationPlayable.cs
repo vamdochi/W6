@@ -129,7 +129,7 @@ public partial class SimpleAnimationPlayable : PlayableBehaviour
         if (state != null)
         {
             Debug.LogError(string.Format("Cannot add state with name {0}, because a state with that name already exists", name));
-            return -1;
+            return state.index;
         }
 
         state = DoAddClip(name, clip);
@@ -172,8 +172,20 @@ public partial class SimpleAnimationPlayable : PlayableBehaviour
         return Play(state.index);
     }
 
-    public bool Play(int index)
+    public bool Play(int index, float animTime = 0.0f)
     {
+        StateInfo doState = m_States[index];
+
+        // 실행중이면 빠르게 스킵
+        if (doState.enabled)
+        {
+            return false;
+        }
+        if (animTime != 0.0f)
+        {
+            doState.playable.SetSpeed( doState.clip.length / animTime );
+        }
+
         for (int i = 0; i < m_States.Count; i++)
         {
             StateInfo state = m_States[i];

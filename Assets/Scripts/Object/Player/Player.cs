@@ -4,8 +4,11 @@ using UnityEngine;
 
 public class Player : BaseObject{
 
-    public GameObject _shadow = null;
+    public MoveAction MoveAction = null;
+    public IdleAction IdleAction = null;
+    public RollAction RollAction = null;
 
+    public GameObject _shadow = null;
     private KeyCode _lastInputKey = KeyCode.None;
     private const float _oriMoveTimeSec = 0.22f;
     private const float _rollTimeSec    = 0.5f;
@@ -14,19 +17,32 @@ public class Player : BaseObject{
 	void Start () {
         base.Initialize();
 
-        Camera.main.GetComponent<TargetCamera>().SetTarget(this);
-        OnMoveEndCallBack += () =>
-        {
-            _animator.SetBool("Rolling", false);
-        };
+        // Load Action Func으로 뺴세요
+        if (MoveAction == null)
+            MoveAction = GetComponent<MoveAction>();
+
+        if (IdleAction == null)
+            IdleAction = GetComponent<IdleAction>();
+
+        if (RollAction == null)
+            RollAction = GetComponent<RollAction>();
+
+
+        var mainCamera = Camera.main.GetComponent<TargetCamera>();
+
+        MoveAction.OnMoveEndCallBack += mainCamera.OnUpdateCamera;
+        mainCamera.SetTarget(this);
     }
 	
 	// Update is called once per frame
 	protected override void Update () {
+        if( !IsActing)
+        {
+            IdleAction.Idle();
+            MoveUpdate();
+        }
 
-        MoveUpdate();
-
-        if( Input.GetKeyDown(KeyCode.Space))
+        if ( Input.GetKeyDown(KeyCode.Space))
         {
             _animator.SetTrigger("Attack");
         }
@@ -35,7 +51,7 @@ public class Player : BaseObject{
 	private void InputUpdate()
     {
         if ( Input.GetKeyDown( KeyCode.W))
-        {
+        { 
             _lastInputKey = KeyCode.W;
         }
         else if (Input.GetKeyDown(KeyCode.S))
@@ -54,8 +70,8 @@ public class Player : BaseObject{
     
 	protected override void AttackEnd()
     {
-        short targetRow = (short)(Row + _moveDirection.x);
-        short targetCol = (short)(Col + _moveDirection.y);
+        short targetRow = (short)(Row + MoveDirection.x);
+        short targetCol = (short)(Col + MoveDirection.y);
 
         var TargetObject = TileManager.Get.GetObject(targetRow, targetCol);
         if( TargetObject != null)
@@ -65,18 +81,18 @@ public class Player : BaseObject{
         if( _lastInputKey != KeyCode.None)
         {
             KeyCode prevKeyCode = KeyCode.None;
-            if( _moveDirection.x == 0.0f)
+            if( MoveDirection.x == 0.0f)
             {
-                if (_moveDirection.y > 0.0f)
+                if (MoveDirection.y > 0.0f)
                 {
                     prevKeyCode = KeyCode.W;
                 }
                 else
                     prevKeyCode = KeyCode.S;
             }
-            else if (_moveDirection.y == 0.0f)
+            else if (MoveDirection.y == 0.0f)
             {
-                if (_moveDirection.x > 0.0f)
+                if (MoveDirection.x > 0.0f)
                 {
                     prevKeyCode = KeyCode.D;
                 }
@@ -153,18 +169,20 @@ public class Player : BaseObject{
 
         if ( direction  != Vector3.zero)
         {
-            _animator.SetInteger("Direction", (int)direction.y);
-            if( direction.x != 0.0f && 
-                direction.y != 0.0f)
-            {
-                _animator.SetBool("Rolling", true);
-            }
-            _moveDirection = direction;
+            bool moveResult = false;
 
-            if (!Move())
+            if( direction.x !=0 && direction.y != 0)
             {
-                Attack();
-                _lastInputKey = KeyCode.None;
+                moveResult = RollAction.Move(direction);
+            }
+            else
+            {
+                moveResult = MoveAction.Move(direction);
+            }
+
+            if( moveResult)
+            {
+                MoveDirection = direction;
             }
         }
     }

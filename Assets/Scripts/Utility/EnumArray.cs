@@ -21,19 +21,23 @@ public static class CastTo<T>
     }
 }
 
-public class EnumArray<TValue>
+public class EnumArray<TValue> where TValue : new()
 {
     private TValue[] _data;
 
-    public EnumArray(Enum enumId)
+    public void Allocate<TEnum>(TEnum T) 
     {
-        _data = new TValue[CastTo<int>.From(enumId)];
+        _data = new TValue[CastTo<int>.From(T)];
+
+        for( int i = 0; i < _data.Length; ++i )
+        {
+            _data[i] = new TValue();
+        }
     }
 
-    public TValue this[Enum enumId]
+    public TValue Get<TEnum>( TEnum T)
     {
-        get { return _data[CastTo<int>.From(enumId)]; }
-        set { _data[CastTo<int>.From(enumId)] = value; }
+        return _data[CastTo<int>.From(T)];
     }
 
     public TValue this[int index]
@@ -42,5 +46,5 @@ public class EnumArray<TValue>
         set { _data[index] = value; }
     }
 
-    public int Length  { get { return _data.Length; } }
+    public int Length  { get { if( _data != null ) return _data.Length; return 0; } }
 }

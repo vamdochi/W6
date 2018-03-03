@@ -11,8 +11,11 @@ public enum ActionStatus
 }
 public class BaseObject : MonoBehaviour {
 
+    public bool IsActing { get; set; }
     public short Row { get; set; }
     public short Col { get; set; }
+    public Vector3 MoveDirection { get; set; }
+
     public Vector3 TargetMovePosition { get; set; }
     public Vector3 PrevMovePosition { get; set; }
     public ActionStatus Status { get; private set; }
@@ -29,7 +32,6 @@ public class BaseObject : MonoBehaviour {
     protected float _moveLeftTime = 0.0f;
     protected float _velocity = 0.0f;
 
-    protected Vector3 _moveDirection = Vector3.zero;
     protected   float _moveTimeSec = 0.0f;
     protected Animator _animator = null;
 
@@ -146,19 +148,19 @@ public class BaseObject : MonoBehaviour {
 
     protected bool Move()
     {
-        if (_moveDirection != Vector3.zero && IsCanMove())
+        if (MoveDirection != Vector3.zero && IsCanMove())
         {
-            short MoveRow = (short)(Row + _moveDirection.x);
-            short MoveCol = (short)(Col + _moveDirection.y);
+            short MoveRow = (short)(Row + MoveDirection.x);
+            short MoveCol = (short)(Col + MoveDirection.y);
 
             if (TileManager.Get.IsCanMove( MoveRow, MoveCol ) && ChangeStatus(ActionStatus.MOVE) )
             {
                 TileManager.Get.MoveObject(this, MoveRow, MoveCol);
                 _animator.SetInteger("AnimPer", 0);
                 _moveLeftTime = _moveTimeSec;
-                if (_moveDirection.x != 0)
+                if (MoveDirection.x != 0)
                 {
-                    bool IsNegative = _moveDirection.x < 0;
+                    bool IsNegative = MoveDirection.x < 0;
                     if ( IsNegative != transform.localScale.x < 0.0f)
                     {
                         transform.localScale = new Vector3(-transform.localScale.x, transform.localScale.y, transform.localScale.z);

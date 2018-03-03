@@ -4,6 +4,7 @@ using UnityEngine;
 using System;
 using UnityEngine.EventSystems;
 using System.IO;
+using System.Text;
 
 public class TileManager : MonoBehaviour {
 
@@ -48,6 +49,11 @@ public class TileManager : MonoBehaviour {
     {
         return _tiles[row, col].Object;
     }
+    public Vector3 GetTilePosition( short row, short col)
+    {
+        return _tiles[row, col].transform.position;
+    }
+
     public void MoveObject(BaseObject Object, short row, short col)
     {
         _tiles[Object.Row, Object.Col].Object = null;
@@ -55,8 +61,6 @@ public class TileManager : MonoBehaviour {
 
         Object.Col = col;
         Object.Row = row;
-        Object.TargetMovePosition = _tiles[row, col].transform.position + new Vector3(0, 0.1f, 0);
-        Object.PrevMovePosition = Object.transform.position;
     }
     public bool IsCanMove( int row, int col)
     {
@@ -88,6 +92,11 @@ public class TileManager : MonoBehaviour {
                     new Vector3(x * _tiles.BlockDistance, y * _tiles.BlockDistance, 0.0f),
                     Quaternion.identity) as GameObject;
                 _tiles[x ,y] = go.GetComponent<Tile>();
+
+                go.transform.SetParent(transform);
+                var name = new StringBuilder();
+                name.AppendFormat("tile {0} / {1}", y, x);
+                go.name = name.ToString();
             }
         }
     }
