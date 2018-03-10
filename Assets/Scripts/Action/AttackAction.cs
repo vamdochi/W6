@@ -38,7 +38,6 @@ public class AttackAction : BaseAction {
         if (targetObject != null)
         {
             _thisObject.IsActing = true;
-            CustomAnimController.
         }
     }
 
