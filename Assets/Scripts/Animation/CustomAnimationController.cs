@@ -13,7 +13,7 @@ public class CustomAnimationController : MonoBehaviour {
 
     void Awake() {
         _animator = GetComponent<Animator>();
-        _simpleAnimation = this.gameObject.AddComponent<SimpleAnimation>();
+        _simpleAnimation = gameObject.AddComponent<SimpleAnimation>();
     }
 
     // Animation Name으로 받는것보다 Enum으로 타입들 정의한다음
