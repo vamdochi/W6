@@ -31,13 +31,26 @@ public class EnumArray<TValue> where TValue : new()
 
         for( int i = 0; i < _data.Length; ++i )
         {
-            _data[i] = new TValue();
+            _data[i] = default(TValue);
         }
     }
 
     public TValue Get<TEnum>( TEnum T)
     {
-        return _data[CastTo<int>.From(T)];
+        try
+        {
+            return _data[CastTo<int>.From(T)];
+        }
+        catch(Exception ex)
+        {
+            ex.ToString();
+            return default(TValue);
+        }
+    }
+
+    public void Set<TEnum>( TEnum Tenum, TValue Tvalue)
+    {
+        _data[CastTo<int>.From(Tenum)] = Tvalue;
     }
 
     public TValue this[int index]

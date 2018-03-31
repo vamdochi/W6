@@ -23,11 +23,12 @@ public class MoveAction : BaseAction {
 
     protected override void LoadResource()
     {
-        _animationInfos.Allocate(NormalDir.MAX);
+        _animInfos.InitAnimMaxSize(NormalDir.MAX, NormalAct.MAX);
 
- //       _animationInfos.Get(NormalDir.TOP).Clip      = Resources.Load(GetResourcePath() + "Move/Top", typeof(AnimationClip)) as AnimationClip;
- //       _animationInfos.Get(NormalDir.DOWN).Clip     = Resources.Load(GetResourcePath() + "Move/Down", typeof(AnimationClip)) as AnimationClip;
- //       _animationInfos.Get(NormalDir.BESIDE).Clip   = Resources.Load(GetResourcePath() + "Move/Beside", typeof(AnimationClip)) as AnimationClip;
+        // _animInfos.RegisterAnimInfo(NormalDir.TOP,  NormalAct.Act,   Resources.Load(GetResourcePath() + "Move/Top", typeof(AnimationClip)) as AnimationClip);
+        // _animInfos.RegisterAnimInfo(NormalDir.DOWN, NormalAct.Act,   Resources.Load(GetResourcePath() + "Move/Down", typeof(AnimationClip)) as AnimationClip);
+        // _animInfos.RegisterAnimInfo(NormalDir.BESIDE, NormalAct.Act, Resources.Load(GetResourcePath() + "Move/Down", typeof(AnimationClip)) as AnimationClip);
+
     }
 
     public void Update()

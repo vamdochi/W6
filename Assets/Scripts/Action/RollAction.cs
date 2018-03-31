@@ -7,10 +7,11 @@ public class RollAction : MoveAction
 
     protected override void LoadResource()
     {
-        _animationInfos.Allocate(NormalDir.MAX);
+        _animInfos.InitAnimMaxSize(NormalDir.MAX, NormalAct.MAX);
 
-        _animationInfos.Get(NormalDir.TOP).Clip       = Resources.Load(GetResourcePath() + "Roll/Top", typeof(AnimationClip)) as AnimationClip;
-        _animationInfos.Get(NormalDir.DOWN).Clip     = Resources.Load(GetResourcePath() + "Roll/Down", typeof(AnimationClip)) as AnimationClip;
+        _animInfos.RegisterAnimInfo(NormalDir.TOP, NormalAct.Act, Resources.Load(GetResourcePath() + "Roll/Top", typeof(AnimationClip)) as AnimationClip);
+        _animInfos.RegisterAnimInfo(NormalDir.DOWN, NormalAct.Act, Resources.Load(GetResourcePath() + "Roll/Down", typeof(AnimationClip)) as AnimationClip);
+
     }
 
     protected override void UpdateAnimDir(Vector3 moveDir)
@@ -19,11 +20,11 @@ public class RollAction : MoveAction
 
         if( moveDir.y > 0.0f)
         {
-            CustomAnimController.PlayAnimation(_animationInfos.Get(NormalDir.TOP).AnimIndex, ActionAnimTime);
+            PlayAnimation(NormalDir.TOP, NormalAct.Act);
         }
         else
         {
-            CustomAnimController.PlayAnimation(_animationInfos.Get(NormalDir.DOWN).AnimIndex, ActionAnimTime);
+            PlayAnimation(NormalDir.DOWN, NormalAct.Act);
         }
     }
 }

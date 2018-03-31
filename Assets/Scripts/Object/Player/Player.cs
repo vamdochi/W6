@@ -146,25 +146,25 @@ public class Player : BaseObject{
         {
             SetMoveTime(_rollTimeSec);
             direction.x = -1.0f;
-            direction.y = -1.0f;
+            direction.y = 1.0f;
         }
         else if (Input.GetKeyDown(KeyCode.Z))
         {
             SetMoveTime(_rollTimeSec);
             direction.x = -1.0f;
-            direction.y = 1.0f;
+            direction.y = -1.0f;
         }
         else if (Input.GetKeyDown(KeyCode.E))
         {
             SetMoveTime(_rollTimeSec);
             direction.x = 1.0f;
-            direction.y = -1.0f;
+            direction.y = 1.0f;
         }
         else if (Input.GetKeyDown(KeyCode.C))
         {
             SetMoveTime(_rollTimeSec);
             direction.x = 1.0f;
-            direction.y = 1.0f;
+            direction.y = -1.0f;
         }
 
         if ( direction  != Vector3.zero)
