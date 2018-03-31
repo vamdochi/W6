@@ -15,7 +15,7 @@ public class AttackAction : BaseAction {
     [SerializeField]
     public AttackInfo[] AttackInfos = new AttackInfo[(int)AttackAct.MAX];
 
-    enum AttackAct : int
+    enum AttackAct : int // 추후에 Count로 그냥 뺴는게 나을꺼같지 않냐?
     {
         ONE, TWO, THREE, MAX
     }
@@ -39,6 +39,11 @@ public class AttackAction : BaseAction {
         {
             _thisObject.IsActing = true;
         }
+    }
+
+    public void OnAttack()
+    {
+
     }
 
 }
