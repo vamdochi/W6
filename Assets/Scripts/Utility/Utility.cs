@@ -307,3 +307,30 @@ public static class Utility
         }
     }
 }
+
+public class SingleTon<T> : MonoBehaviour where T : MonoBehaviour
+{
+    private static T _instance;
+
+    public static T Instance
+    {
+        get
+        {
+            if (_instance == null)
+            {
+                GameObject obj;
+                obj = GameObject.Find(typeof(T).Name);
+                if ( obj == null)
+                {
+                    obj = new GameObject();
+                    _instance = obj.AddComponent<T>();
+                }
+                else
+                {
+                    _instance = obj.GetComponent<T>();
+                }
+            }
+            return _instance;
+        }
+    }
+}

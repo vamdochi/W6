@@ -23,7 +23,7 @@ public class MoveAction : BaseAction {
 
     protected override void LoadResource()
     {
-        _animInfos.InitAnimMaxSize(NormalDir.MAX, NormalAct.MAX);
+        _animInfos.InitAnimMaxSize(1, NormalDir.MAX);
 
         // _animInfos.RegisterAnimInfo(NormalDir.TOP,  NormalAct.Act,   Resources.Load(GetResourcePath() + "Move/Top", typeof(AnimationClip)) as AnimationClip);
         // _animInfos.RegisterAnimInfo(NormalDir.DOWN, NormalAct.Act,   Resources.Load(GetResourcePath() + "Move/Down", typeof(AnimationClip)) as AnimationClip);
@@ -49,7 +49,7 @@ public class MoveAction : BaseAction {
             {
                 _currJumpHeight = 0.0f;
                 _moveLeftTime = 0.0f;
-                _thisObject.IsActing = false;
+                UnLockObject();
                 if (OnMoveEndCallBack != null)
                 {
                     OnMoveEndCallBack.Invoke();
@@ -76,14 +76,17 @@ public class MoveAction : BaseAction {
         }
     }
 
-    public bool Move(Vector3 moveDir)
+    public virtual bool Move(Vector3 moveDir)
     {
+        if (!IsCanDoAction())
+            return false;
+
         short moveRow = (short)(_thisObject.Row + moveDir.x);
         short moveCol = (short)(_thisObject.Col + moveDir.y);
 
         if ( IsCanMove( moveRow, moveCol))
         {
-            _thisObject.IsActing = true;
+            LockObject();
 
             TileManager.Get.MoveObject(_thisObject, moveRow, moveCol);
 

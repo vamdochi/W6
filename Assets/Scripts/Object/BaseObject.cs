@@ -11,7 +11,7 @@ public enum ActionStatus
 }
 public class BaseObject : MonoBehaviour {
 
-    public bool IsActing { get; set; }
+    public BaseAction LockingAction { get; set; }
     public short Row { get; set; }
     public short Col { get; set; }
     public Vector3 MoveDirection { get; set; }
@@ -41,6 +41,11 @@ public class BaseObject : MonoBehaviour {
     public void OnHit( float fDamage )
     {
         _spriteRenderer.color = new Color(1.0f, 0, 0);
+    }
+
+    public bool IsLockAction()
+    {
+        return LockingAction != null;
     }
     
 	protected virtual void Initialize()

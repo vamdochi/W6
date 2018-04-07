@@ -7,10 +7,10 @@ public class RollAction : MoveAction
 
     protected override void LoadResource()
     {
-        _animInfos.InitAnimMaxSize(NormalDir.MAX, NormalAct.MAX);
+        _animInfos.InitAnimMaxSize(1, NormalDir.MAX);
 
-        _animInfos.RegisterAnimInfo(NormalDir.TOP, NormalAct.Act, Resources.Load(GetResourcePath() + "Roll/Top", typeof(AnimationClip)) as AnimationClip);
-        _animInfos.RegisterAnimInfo(NormalDir.DOWN, NormalAct.Act, Resources.Load(GetResourcePath() + "Roll/Down", typeof(AnimationClip)) as AnimationClip);
+        _animInfos.RegisterAnimInfo(0, NormalDir.TOP, Resources.Load(GetResourcePath() + "Roll/Top", typeof(AnimationClip)) as AnimationClip);
+        _animInfos.RegisterAnimInfo(0, NormalDir.DOWN, Resources.Load(GetResourcePath() + "Roll/Down", typeof(AnimationClip)) as AnimationClip);
 
     }
 
@@ -20,11 +20,24 @@ public class RollAction : MoveAction
 
         if( moveDir.y > 0.0f)
         {
-            PlayAnimation(NormalDir.TOP, NormalAct.Act);
+            PlayAnimation(0, NormalDir.TOP);
         }
         else
         {
-            PlayAnimation(NormalDir.DOWN, NormalAct.Act);
+            PlayAnimation(0, NormalDir.DOWN);
         }
     }
+
+    public override bool IsCanDoAction()
+    {
+        var currAction = _thisObject.LockingAction;
+        if (currAction != null &&
+            currAction.GetType() == typeof(AttackAction))
+        {
+            return true;
+        }
+
+        return base.IsCanDoAction();
+    }
+
 }

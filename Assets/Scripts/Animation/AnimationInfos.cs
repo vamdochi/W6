@@ -19,53 +19,45 @@ public class AnimationInfos {
     }
 
     private Enum _eDirection;
-    private Enum _eAction;
     private CustomAnimationController _animController;
 
-    protected EnumArray<EnumArray<AnimationInfo>> _animationInfos = new EnumArray<EnumArray<AnimationInfo>>();
+    protected List<EnumArray<AnimationInfo>> _animationInfos = new List<EnumArray<AnimationInfo>>();
 
     public AnimationInfos( CustomAnimationController controller)
     {
         _animController = controller;
     }
 
-    public void InitAnimMaxSize<TDir, TAct>(TDir eDirection, TAct eAction)
+    public void InitAnimMaxSize<TDir>(int Length, TDir eDirection)
     {
         _eDirection = (Enum)Enum.ToObject(eDirection.GetType(), eDirection);
-        _eAction    = (Enum)Enum.ToObject(eAction.GetType(), eAction);
 
-        _animationInfos.Allocate(eDirection);
-    }
-    public int GetIndex<TDir, TAct>( TDir eDirection, TAct eAction)
-    {
-        if (eDirection.GetType() == _eDirection.GetType() &&
-            eAction.GetType() == _eAction.GetType())
+        for( int n =0; n < Length; ++n)
         {
-            var actionArray = _animationInfos.Get(eDirection);
-            if (actionArray != null)
-            {
-                var animInfo = actionArray.Get(eAction);
-                if (animInfo != null)
-                {
-                    return animInfo.AnimIndex;
-                }
+            EnumArray<AnimationInfo> enumArray = new EnumArray<AnimationInfo>();
+            enumArray.Allocate(eDirection);
+
+            _animationInfos.Add(enumArray);
+        }
+
+    }
+    public int GetIndex<TDir>( int index, TDir eDirection)
+    {
+        if (eDirection.GetType() == _eDirection.GetType())
+        {
+            var animInfo = _animationInfos[index].Get(eDirection);
+            if (animInfo != null)
+            {    
+                return animInfo.AnimIndex;
             }
         }
         return -1;
     }
 
-    public void RegisterAnimInfo<TDir, TAct>( TDir eDirection, TAct eAction, AnimationClip clip)
+    public void RegisterAnimInfo<TDir>( int index, TDir eDirection, AnimationClip clip)
     {
-        var actionArray = _animationInfos.Get(eDirection);
+        var animInfo = _animationInfos[index].Get(eDirection);
 
-        if( actionArray == null)
-        {
-            actionArray = new EnumArray<AnimationInfo>();
-            actionArray.Allocate((TAct)(object)_eAction);
-            _animationInfos.Set(eDirection, actionArray);
-        }
-
-        AnimationInfo animInfo = actionArray.Get(eAction);
         if( animInfo != null)
         {
             _animController.RemoveClip(animInfo.AnimIndex);
@@ -78,20 +70,20 @@ public class AnimationInfos {
 
         if( animInfo.AnimIndex != -1)
         {
-            actionArray.Set(eAction, animInfo);
+            _animationInfos[index].Set(eDirection, animInfo);
         }
     }
 
     public void UnregisterAllAnimInfo()
     {
-        for (int di = 0; di < _animationInfos.Length; ++di)
+        for (int i = 0; i < _animationInfos.Count; ++i)
         {
-            var actionArray = _animationInfos[di];
+            var actionArray = _animationInfos[i];
             if( actionArray != null)
             {
-                for ( int ai = 0; ai < actionArray.Length; ++ai)
+                for ( int di = 0; di < actionArray.Length; ++di)
                 {
-                    var animInfo = actionArray[ai];
+                    var animInfo = actionArray[di];
                     if (animInfo == null || animInfo.AnimIndex == -1)
                     {
                         Debug.LogError(string.Format("Couldn't unregister animation clip, because index is -1 : {0}", this.GetType().Name));
