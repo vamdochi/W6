@@ -67,9 +67,10 @@ public class AttackAction : BaseAction {
             return false;
     }
 
-    public void OnAttackEffect()
+    public void OnAttack()
     {
-
+        Instantiate(Resources.Load(WeaponInfo._attackInfos[_currentAttackIndex].EffectPath, typeof(GameObject)), 
+            transform.position +_thisObject.MoveDirection * TileManager.Get.GetTileDist(), Quaternion.identity);
     }
 
     public void OnEnableContinueAttack()

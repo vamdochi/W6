@@ -8,6 +8,9 @@ public class AttackInfo
 {
     [SerializeField]
     public string ResourcePath;
+
+    [SerializeField]
+    public string EffectPath;
 }
 
 [Serializable]
