@@ -1,13 +1,11 @@
 fileFormatVersion: 2
-guid: 8e3f30ff243ea9f44ad621511f940585
+guid: fe73389a27956394b968fedb1198ae49
 TextureImporter:
   fileIDToRecycleName:
-    21300000: H_dash_down_0
-    21300002: H_dash_down_1
-    21300004: H_dash_down_2
-    21300006: H_dash_down_3
-    21300008: H_dash_down_4
-    21300010: H_dash_down_5
+    21300000: H_idel_down_0
+    21300002: H_idel_down_1
+    21300004: H_idel_down_2
+    21300006: H_idel_down_3
   externalObjects: {}
   serializedVersion: 7
   mipmaps:
@@ -47,7 +45,7 @@ TextureImporter:
   lightmap: 0
   compressionQuality: 50
   spriteMode: 2
-  spriteExtrude: 0
+  spriteExtrude: 1
   spriteMeshType: 1
   alignment: 0
   spritePivot: {x: 0.5, y: 0.5}
@@ -90,7 +88,7 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: H_dash_down_0
+      name: H_idel_down_0
       rect:
         serializedVersion: 2
         x: 0
@@ -104,13 +102,13 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: db396dcd0592d4943997f08fc312e859
+      spriteID: 3acecd9b342daa049aad457d69bee6f6
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: H_dash_down_1
+      name: H_idel_down_1
       rect:
         serializedVersion: 2
         x: 64
@@ -124,13 +122,13 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 7de5b9cc74ccdb943804c3d80fbb7581
+      spriteID: 4ce73a41c691c5646a5f08f7a08a4320
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: H_dash_down_2
+      name: H_idel_down_2
       rect:
         serializedVersion: 2
         x: 128
@@ -144,13 +142,13 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: d595afa0631eecc40b7764827024884c
+      spriteID: 1cfc7d47990e4254c86081e56564aec2
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: H_dash_down_3
+      name: H_idel_down_3
       rect:
         serializedVersion: 2
         x: 192
@@ -164,47 +162,7 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 626e056057c0e754285e8696db03cb9f
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: H_dash_down_4
-      rect:
-        serializedVersion: 2
-        x: 256
-        y: 0
-        width: 64
-        height: 64
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: cc37b6b0678b703429d6dd7f3e06a537
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: H_dash_down_5
-      rect:
-        serializedVersion: 2
-        x: 320
-        y: 0
-        width: 64
-        height: 64
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 4384a1263e3530f458fcd7aff8ca4f9b
+      spriteID: 027d959cec680ac499c5ff21f4d07898
       vertices: []
       indices: 
       edges: []
@@ -212,7 +170,7 @@ TextureImporter:
     outline: []
     physicsShape: []
     bones: []
-    spriteID: 97c9e040a2e5f2a4487bf69d9e1274cb
+    spriteID: 5fb866c8b87df2e4e8b0db96ae8fea67
     vertices: []
     indices: 
     edges: []

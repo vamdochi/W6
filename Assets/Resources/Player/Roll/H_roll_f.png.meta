@@ -1,13 +1,14 @@
 fileFormatVersion: 2
-guid: 8e3f30ff243ea9f44ad621511f940585
+guid: 50c457aeda50d904694d73d34728d976
 TextureImporter:
   fileIDToRecycleName:
-    21300000: H_dash_down_0
-    21300002: H_dash_down_1
-    21300004: H_dash_down_2
-    21300006: H_dash_down_3
-    21300008: H_dash_down_4
-    21300010: H_dash_down_5
+    21300000: H_roll_f_0
+    21300002: H_roll_f_1
+    21300004: H_roll_f_2
+    21300006: H_roll_f_3
+    21300008: H_roll_f_4
+    21300010: H_roll_f_5
+    21300012: H_roll_f_6
   externalObjects: {}
   serializedVersion: 7
   mipmaps:
@@ -47,7 +48,7 @@ TextureImporter:
   lightmap: 0
   compressionQuality: 50
   spriteMode: 2
-  spriteExtrude: 0
+  spriteExtrude: 1
   spriteMeshType: 1
   alignment: 0
   spritePivot: {x: 0.5, y: 0.5}
@@ -90,7 +91,7 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: H_dash_down_0
+      name: H_roll_f_0
       rect:
         serializedVersion: 2
         x: 0
@@ -104,13 +105,13 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: db396dcd0592d4943997f08fc312e859
+      spriteID: ea119e88f2e538f499c28abd62a28e5c
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: H_dash_down_1
+      name: H_roll_f_1
       rect:
         serializedVersion: 2
         x: 64
@@ -124,13 +125,13 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 7de5b9cc74ccdb943804c3d80fbb7581
+      spriteID: bc9f489fc8126654c8549b0cc38ab3a7
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: H_dash_down_2
+      name: H_roll_f_2
       rect:
         serializedVersion: 2
         x: 128
@@ -144,13 +145,13 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: d595afa0631eecc40b7764827024884c
+      spriteID: f9bc5041658172d41a52f8f1c8f6c434
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: H_dash_down_3
+      name: H_roll_f_3
       rect:
         serializedVersion: 2
         x: 192
@@ -164,13 +165,13 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 626e056057c0e754285e8696db03cb9f
+      spriteID: a0883820c841ba34aade58c222599973
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: H_dash_down_4
+      name: H_roll_f_4
       rect:
         serializedVersion: 2
         x: 256
@@ -184,13 +185,13 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: cc37b6b0678b703429d6dd7f3e06a537
+      spriteID: 2762023d09e2eba46a9e1a4027bf476f
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: H_dash_down_5
+      name: H_roll_f_5
       rect:
         serializedVersion: 2
         x: 320
@@ -204,7 +205,27 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 4384a1263e3530f458fcd7aff8ca4f9b
+      spriteID: 8525e92a9084f69438410095ea49cf5d
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: H_roll_f_6
+      rect:
+        serializedVersion: 2
+        x: 384
+        y: 0
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d913d865dd456a54bbcc88d62f9b71d0
       vertices: []
       indices: 
       edges: []
@@ -212,7 +233,7 @@ TextureImporter:
     outline: []
     physicsShape: []
     bones: []
-    spriteID: 97c9e040a2e5f2a4487bf69d9e1274cb
+    spriteID: e040bebc5a4437845bbee24c0cf7b62f
     vertices: []
     indices: 
     edges: []
