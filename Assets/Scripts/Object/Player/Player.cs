@@ -8,6 +8,8 @@ public class Player : BaseObject{
     public IdleAction IdleAction = null;
     public RollAction RollAction = null;
     public AttackAction AttackAction = null;
+    public KnockBackAction KnockBackAction = null;
+
 
     public GameObject _shadow = null;
     private KeyCode _lastInputKey = KeyCode.None;
@@ -30,6 +32,10 @@ public class Player : BaseObject{
 
         if (AttackAction == null)
             AttackAction = GetComponent<AttackAction>();
+
+        if (KnockBackAction == null)
+            KnockBackAction = GetComponent<KnockBackAction>();
+
 
         var mainCamera = Camera.main.GetComponent<TargetCamera>();
 

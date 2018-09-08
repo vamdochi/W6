@@ -54,19 +54,21 @@ public class AnimationInfos {
         return -1;
     }
 
-    public void RegisterAnimInfo<TDir>( int index, TDir eDirection, AnimationClip clip)
+    public void RegisterAnimInfo<TDir>( int index, TDir eDirection, string animationPath)
     {
         var animInfo = _animationInfos[index].Get(eDirection);
-
+        
         if( animInfo != null)
         {
             _animController.RemoveClip(animInfo.AnimIndex);
             animInfo = null;
         }
 
+        AnimationClip clip;
+
         animInfo = new AnimationInfo();
+        animInfo.AnimIndex = _animController.AddClip(out clip, animationPath);
         animInfo.Clip = clip;
-        animInfo.AnimIndex = _animController.AddClip(clip);
 
         if( animInfo.AnimIndex != -1)
         {

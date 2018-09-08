@@ -7,7 +7,7 @@ public class TargetCamera : MonoBehaviour {
     public BaseObject TargetObject = null;
 
     private bool    _IsUpdate = false;
-    private float   _moveTotalSec = 0.15f;
+    private float   _moveTotalSec = 0.1f;
 
     public void SetTarget( BaseObject Object)
     {
