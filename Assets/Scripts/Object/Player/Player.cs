@@ -7,6 +7,7 @@ public class Player : BaseObject{
     public MoveAction MoveAction = null;
     public IdleAction IdleAction = null;
     public RollAction RollAction = null;
+    public AttackAction AttackAction = null;
 
     public GameObject _shadow = null;
     private KeyCode _lastInputKey = KeyCode.None;
@@ -27,6 +28,8 @@ public class Player : BaseObject{
         if (RollAction == null)
             RollAction = GetComponent<RollAction>();
 
+        if (AttackAction == null)
+            AttackAction = GetComponent<AttackAction>();
 
         var mainCamera = Camera.main.GetComponent<TargetCamera>();
 
@@ -36,11 +39,11 @@ public class Player : BaseObject{
 	
 	// Update is called once per frame
 	protected override void Update () {
-        if( !IsActing)
+        if( !IsLockAction() )
         {
             IdleAction.Idle();
-            MoveUpdate();
         }
+        MoveInput();
 
         if ( Input.GetKeyDown(KeyCode.Space))
         {
@@ -119,7 +122,6 @@ public class Player : BaseObject{
     private void MoveInput()
     {
         Vector3 direction = Vector3.zero;
-        SetMoveTime(_oriMoveTimeSec);
         
         if (Input.GetKeyDown(KeyCode.W))
         {
@@ -183,6 +185,10 @@ public class Player : BaseObject{
             if( moveResult)
             {
                 MoveDirection = direction;
+            }
+            else
+            {
+                AttackAction.Attack(direction);
             }
         }
     }

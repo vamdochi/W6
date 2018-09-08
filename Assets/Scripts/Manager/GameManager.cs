@@ -9,7 +9,7 @@ public class GameManager : MonoBehaviour {
         const string playerPath = "Prefab/Character/Player/Player";
         const string rabbitPath = "Prefab/Character/Monster/rabbit";
         
-        CreateObject(Resources.Load(playerPath), 0, 0);
+        CreateObject(Resources.Load(playerPath), 13, 13);
         short gen = 14;
         for (int n = 0; n < 7; ++n)
         {

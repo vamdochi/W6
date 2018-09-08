@@ -9,7 +9,6 @@ using UnityEngine;
 [System.Serializable]
 public abstract class BaseAction : MonoBehaviour{
     public enum NormalDir : int { TOP = 0, DOWN, BESIDE, MAX }
-    public enum NormalAct : int { Act = 0, MAX}
 
     public CustomAnimationController CustomAnimController;
     public float ActionAnimTime = 1.0f;
@@ -31,8 +30,23 @@ public abstract class BaseAction : MonoBehaviour{
         return CustomAnimController.ResourcePath;
     }
 
-    protected void PlayAnimation<TDir, TAct>( TDir eDir, TAct eAct)
+    protected void PlayAnimation<TDir>( int index, TDir eDir)
     {
-        CustomAnimController.PlayAnimation(_animInfos.GetIndex(eDir, eAct), ActionAnimTime);
+        CustomAnimController.PlayAnimation(_animInfos.GetIndex(index, eDir), ActionAnimTime);
+    }
+
+    public void LockObject()
+    {
+        _thisObject.LockingAction = this;
+    }
+
+    public void UnLockObject()
+    {
+        _thisObject.LockingAction = null;
+    }
+
+    public virtual bool IsCanDoAction()
+    {
+        return !_thisObject.IsLockAction();
     }
 }

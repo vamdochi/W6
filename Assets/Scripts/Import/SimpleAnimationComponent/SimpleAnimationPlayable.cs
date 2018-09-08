@@ -101,6 +101,7 @@ public partial class SimpleAnimationPlayable : PlayableBehaviour
         newState.stateName = name;
         newState.clip = clip;
         newState.wrapMode = clip.wrapMode;
+
         //Find at which input the state will be connected
         int index = newState.index;
 
@@ -189,6 +190,9 @@ public partial class SimpleAnimationPlayable : PlayableBehaviour
         for (int i = 0; i < m_States.Count; i++)
         {
             StateInfo state = m_States[i];
+            if (state == null)
+                continue;
+
             if (state.index == index)
             { 
                 m_States.EnableState(i);

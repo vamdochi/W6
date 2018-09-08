@@ -389,6 +389,7 @@ public partial class SimpleAnimationPlayable : PlayableBehaviour
 
             state.enabledDirty = true;
             state.enabled = true;
+            state.playable.SetTime(0.0f);
         }
 
         public void DisableState(int index)

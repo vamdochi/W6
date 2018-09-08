@@ -290,6 +290,7 @@
     <Compile Include="Assets\Scripts\Animation\AnimationInfos.cs" />
     <Compile Include="Assets\Scripts\Animation\CustomAnimationController.cs" />
     <Compile Include="Assets\Scripts\Camera\TargetCamera.cs" />
+    <Compile Include="Assets\Scripts\Effect\AttackEffect.cs" />
     <Compile Include="Assets\Scripts\Extension\Extesnion.cs" />
     <Compile Include="Assets\Scripts\Garbage\NotUse.cs" />
     <Compile Include="Assets\Scripts\Import\SimpleAnimationComponent\SimpleAnimation.cs" />
@@ -312,6 +313,7 @@
     <Compile Include="Assets\Scripts\Import\SimpleAnimationComponent\Tests\SimpleAnimationProxy.cs" />
     <Compile Include="Assets\Scripts\Manager\GameManager.cs" />
     <Compile Include="Assets\Scripts\Manager\GridManager.cs" />
+    <Compile Include="Assets\Scripts\Manager\InputManager.cs" />
     <Compile Include="Assets\Scripts\Manager\TestMonster.cs" />
     <Compile Include="Assets\Scripts\Manager\Tile.cs" />
     <Compile Include="Assets\Scripts\Manager\TileManager.cs" />
@@ -323,6 +325,10 @@
     <Compile Include="Assets\Scripts\Utility\EnumArray.cs" />
     <Compile Include="Assets\Scripts\Utility\Extension.cs" />
     <Compile Include="Assets\Scripts\Utility\Utility.cs" />
+    <Compile Include="Assets\Scripts\WeaponInfo\WeaponInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Assets\Resources\woojin\공격\설명.txt" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="GenerateTargetFrameworkMonikerAttribute" />
