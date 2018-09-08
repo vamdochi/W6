@@ -41,8 +41,9 @@ public class MoveAttackAction : MoveAction {
 //                moveRow = (int)(targetPlayer.Row + moveDir.x);
 //                moveCol = (int)(targetPlayer.Col + moveDir.y);
                 LockObject();
-                InternalOnlyMove(_thisObject.transform.position, TileManager.Get.GetTilePosition(moveRow, moveCol));
                 isDoMoveAttack = true;
+
+                InternalOnlyMove(_thisObject.transform.position, TileManager.Get.GetTilePosition(moveRow, moveCol));
 
                 return true;
      //           targetPlayer.KnockBackAction.Move( );
@@ -56,6 +57,27 @@ public class MoveAttackAction : MoveAction {
         return false;
     }
 
+    protected override void UpdateAnimDir(ref Vector3 moveDir)
+    {
+        NormalDir direction = Utility.VecToDir(moveDir);
+
+        if(isDoMoveAttack)
+        {
+            PlayAnimation(1, direction);
+        }
+        else
+        {
+            PlayAnimation(0, direction);
+        }
+
+        bool IsNegative = moveDir.x < 0.0f;
+
+        if (IsNegative != transform.localScale.x < 0.0f)
+        {
+            transform.localScale = new Vector3(-transform.localScale.x, transform.localScale.y, transform.localScale.z);
+        }
+    }
+
     protected override void OnEndMove()
     {
         if (isDoMoveAttack)
@@ -63,6 +85,7 @@ public class MoveAttackAction : MoveAction {
             if (TileManager.Get.IsCanMove((int)moveTarget.x, (int)moveTarget.y))
             {
                 TileManager.Get.MoveObject(_thisObject, (int)moveTarget.x, (int)moveTarget.y);
+                base.OnEndMove();
             }
             else
             {
