@@ -22,9 +22,9 @@ public class AttackAction : BaseAction {
         
         for (int i = 0; i < attackInfos.Length; ++i)
         {
-            _animInfos.RegisterAnimInfo(i, NormalDir.BESIDE, GetResourcePath() + "Attack/attackTest/" + attackInfos[i].ResourcePath);
-    //        _animInfos.RegisterAnimInfo(i, NormalDir.BESIDE, Resources.Load(GetResourcePath() + "Attack/Beside/" + attackInfos[i].ResourcePath, typeof(AnimationClip)) as AnimationClip);
-    //        _animInfos.RegisterAnimInfo(i, NormalDir.BESIDE, Resources.Load(GetResourcePath() + "Attack/Beside/" + attackInfos[i].ResourcePath, typeof(AnimationClip)) as AnimationClip);
+            _animInfos.RegisterAnimInfo(i, NormalDir.BESIDE,    GetResourcePath() + "Attack/Beside/" + attackInfos[i].ResourcePath);
+            _animInfos.RegisterAnimInfo(i, NormalDir.TOP,       GetResourcePath() + "Attack/Down/" + attackInfos[i].ResourcePath);
+            _animInfos.RegisterAnimInfo(i, NormalDir.DOWN,      GetResourcePath() + "Attack/Top/" + attackInfos[i].ResourcePath);
         }
     }
     private void Update()

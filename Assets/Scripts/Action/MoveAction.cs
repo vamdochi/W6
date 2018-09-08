@@ -66,13 +66,11 @@ public class MoveAction : BaseAction {
 
         PlayAnimation(0, direction);
 
-        {
-            bool IsNegative = moveDir.x < 0.0f;
+        bool IsNegative = moveDir.x < 0.0f;
 
-            if (IsNegative != transform.localScale.x < 0.0f)
-            {
-                transform.localScale = new Vector3(-transform.localScale.x, transform.localScale.y, transform.localScale.z);
-            }
+        if (IsNegative != transform.localScale.x < 0.0f)
+        {
+            transform.localScale = new Vector3(-transform.localScale.x, transform.localScale.y, transform.localScale.z);
         }
     }
 
