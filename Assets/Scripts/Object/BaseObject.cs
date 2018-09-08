@@ -12,8 +12,8 @@ public enum ActionStatus
 public class BaseObject : MonoBehaviour {
 
     public BaseAction LockingAction { get; set; }
-    public short Row { get; set; }
-    public short Col { get; set; }
+    public int Row { get; set; }
+    public int Col { get; set; }
     public Vector3 MoveDirection { get; set; }
 
     public Vector3 TargetMovePosition { get; set; }

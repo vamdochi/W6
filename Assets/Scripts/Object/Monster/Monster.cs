@@ -5,11 +5,16 @@ using UnityEngine;
 public class Monster : BaseObject {
 
     public float MoveDelaySec = 2.5f;
+    public MoveAction MoveAction = null;
+
     // Use this for initialization
     void Start () {
-//        _moveDirection.x = 1;
+        // Load Action Func으로 뺴세요
+        if (MoveAction == null)
+            MoveAction = GetComponent<MoveAction>();
+
         base.Initialize();
-//        StartCoroutine(MoveCorutine());
+        StartCoroutine(MoveCorutine());
 	}
 	
 	// Update is called once per frame
@@ -23,21 +28,22 @@ public class Monster : BaseObject {
         {
             yield return new WaitForSeconds(Random.Range(0.5f, 1.0f) * MoveDelaySec);
 
-            if (IsCanMove())
+            if (Random.Range(0, 11) > 0)
             {
-                if (Random.Range(0, 11) > 0)
+                MoveDirection = Vector3.zero;
+
+                float random = Random.Range(0, 2) * 2 - 1;
+                Vector3 prevMoveDirection = MoveDirection;
+                
+                if (Random.Range(0, 2) > 0)
                 {
-                    MoveDirection = Vector3.zero;
-                    if (Random.Range(0, 2) > 0)
-                    {
-                        MoveDirection.ChangeProperty(Random.Range(0, 2) * 2 - 1, float.NaN, float.NaN);
-                    }
-                    else
-                    {
-                        MoveDirection.ChangeProperty(float.NaN, Random.Range(0, 2) * 2 - 1, float.NaN);
-                    }
+                    MoveDirection = new Vector3( random, prevMoveDirection.y, prevMoveDirection.z);
                 }
-                Move();
+                else
+                {
+                    MoveDirection = new Vector3(prevMoveDirection.x , random , prevMoveDirection.z);
+                }
+                MoveAction.Move(MoveDirection);
             }
         }
     }

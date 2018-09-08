@@ -29,8 +29,15 @@ public class CustomAnimationController : MonoBehaviour {
         _simpleAnimation.RemoveClip(index);
     }
 
-    public int AddClip( AnimationClip clip)
+    public int AddClip( out AnimationClip clip, string animationPath )
     {
-        return _simpleAnimation.AddClip(clip, clip.name);
+        clip = Resources.Load(animationPath, typeof(AnimationClip)) as AnimationClip;
+
+        if(clip == null)
+        {
+            Debug.LogError("AddClip() : animationClip Path is wrong Path");
+            return -1;
+        }
+        return _simpleAnimation.AddClip(clip, animationPath);
     }
 }

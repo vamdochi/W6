@@ -4,18 +4,23 @@ using UnityEngine;
 
 public static class Utility
 {
-    public static BaseAction.NormalDir VecToDir(Vector3 vDir)
+    public static BaseAction.NormalDir VecToDir(Vector3 direction)
     {
-        if (vDir.y == 0)
-        {
-            return BaseAction.NormalDir.BESIDE;
-        }
-        else if (vDir.y > 0)
+        float dot = Vector3.Dot(direction, Vector3.up);
+
+        // up벡터기준 45도이내면~
+        if ( dot >  0.7071f)
         {
             return BaseAction.NormalDir.TOP;
         }
-
-        return BaseAction.NormalDir.DOWN;
+        // up벡터기준 135도가넘으면~
+        if (direction.y < -0.7071f)
+        {
+            return BaseAction.NormalDir.DOWN;
+        }
+        
+        // 그외엔 사이드입니다
+        return BaseAction.NormalDir.BESIDE;
     }
 
     public static float linear(float start, float end, float value)

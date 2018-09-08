@@ -8,9 +8,9 @@ public class IdleAction : BaseAction {
     {
         _animInfos.InitAnimMaxSize(1, NormalDir.MAX);
 
-        _animInfos.RegisterAnimInfo(0, NormalDir.TOP,       Resources.Load(GetResourcePath() + "Idle/Beside", typeof(AnimationClip)) as AnimationClip);
-        _animInfos.RegisterAnimInfo(0, NormalDir.DOWN,      Resources.Load(GetResourcePath() + "Idle/Beside", typeof(AnimationClip)) as AnimationClip);
-        _animInfos.RegisterAnimInfo(0, NormalDir.BESIDE,    Resources.Load(GetResourcePath() + "Idle/Beside", typeof(AnimationClip)) as AnimationClip);
+        _animInfos.RegisterAnimInfo(0, NormalDir.TOP,    GetResourcePath() + "Idle/Top");
+        _animInfos.RegisterAnimInfo(0, NormalDir.DOWN,   GetResourcePath() + "Idle/Down");
+        _animInfos.RegisterAnimInfo(0, NormalDir.BESIDE, GetResourcePath() + "Idle/Beside");
     }
 
     public void Idle()

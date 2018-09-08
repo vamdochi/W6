@@ -7,6 +7,9 @@ using UnityEngine;
 [Serializable]
 public class MoveAction : BaseAction {
 
+    [SerializeField]
+    public AnimationCurve MoveCurve;
+
     public delegate void OnMoveEnd();
     public OnMoveEnd OnMoveEndCallBack;
 
@@ -25,10 +28,9 @@ public class MoveAction : BaseAction {
     {
         _animInfos.InitAnimMaxSize(1, NormalDir.MAX);
 
-        // _animInfos.RegisterAnimInfo(NormalDir.TOP,  NormalAct.Act,   Resources.Load(GetResourcePath() + "Move/Top", typeof(AnimationClip)) as AnimationClip);
-        // _animInfos.RegisterAnimInfo(NormalDir.DOWN, NormalAct.Act,   Resources.Load(GetResourcePath() + "Move/Down", typeof(AnimationClip)) as AnimationClip);
-        // _animInfos.RegisterAnimInfo(NormalDir.BESIDE, NormalAct.Act, Resources.Load(GetResourcePath() + "Move/Down", typeof(AnimationClip)) as AnimationClip);
-
+        _animInfos.RegisterAnimInfo(0, NormalDir.TOP,       GetResourcePath() + "Move/Top");
+        _animInfos.RegisterAnimInfo(0, NormalDir.DOWN,      GetResourcePath() + "Move/Down");
+        _animInfos.RegisterAnimInfo(0, NormalDir.BESIDE,    GetResourcePath() + "Move/Beside");
     }
 
     public void Update()
@@ -40,31 +42,29 @@ public class MoveAction : BaseAction {
             float fPercentage   = Mathf.Clamp01(1.0f - _moveLeftTime / MoveTimeSec);
             fPercentage = Utility.easeOutCubic(0.0f, 1.0f, fPercentage);
 
-            // 아직 이동이 안끝났을떄
             if ( IsMoving() )
             {
                 _currJumpHeight = Mathf.Sin(fPercentage * Mathf.PI) * MaxJumpHeight;
             }
-            else // 이동이 끝났을때
+            else
             {
                 _currJumpHeight = 0.0f;
                 _moveLeftTime = 0.0f;
-                UnLockObject();
-                if (OnMoveEndCallBack != null)
-                {
-                    OnMoveEndCallBack.Invoke();
-                }
+                fPercentage = 1.0f;
+                OnEndMove();
+
             }
 
             CalcPosition(fPercentage);
         }
     }
 
-    protected virtual void UpdateAnimDir(Vector3 moveDir)
+    protected virtual void UpdateAnimDir(ref Vector3 moveDir)
     {
         // 추후에 움직임 애니메이션 생기거나하면 아래 함수 사용해서 구현
-        // NormalDir direction = Utility.VecToDir(moveDir);
-        // 일단 사용안하니 주석걸어놈
+        NormalDir direction = Utility.VecToDir(moveDir);
+
+        PlayAnimation(0, direction);
 
         {
             bool IsNegative = moveDir.x < 0.0f;
@@ -81,8 +81,8 @@ public class MoveAction : BaseAction {
         if (!IsCanDoAction())
             return false;
 
-        short moveRow = (short)(_thisObject.Row + moveDir.x);
-        short moveCol = (short)(_thisObject.Col + moveDir.y);
+        int moveRow = (int)(_thisObject.Row + moveDir.x);
+        int moveCol = (int)(_thisObject.Col + moveDir.y);
 
         if ( IsCanMove( moveRow, moveCol))
         {
@@ -90,22 +90,47 @@ public class MoveAction : BaseAction {
 
             TileManager.Get.MoveObject(_thisObject, moveRow, moveCol);
 
-            _startMovePosition = _thisObject.transform.position;
-            _endMovePosition   = TileManager.Get.GetTilePosition( moveRow, moveCol);
-            _moveLeftTime = MoveTimeSec;
+            InternalOnlyMove(_thisObject.transform.position, TileManager.Get.GetTilePosition(moveRow, moveCol));
 
-            UpdateAnimDir(moveDir);
             return true;
         }
         return false;
     }
 
-    protected virtual void CalcPosition( float fPercentage)
+    protected void InternalOnlyMove( Vector3 startPosition, Vector3 endPosition)
     {
-        transform.position = Vector3.Lerp(_startMovePosition, _endMovePosition, fPercentage) + new Vector3(0, _currJumpHeight, 0);
+        _moveLeftTime = MoveTimeSec;
+        _startMovePosition = startPosition;
+        _endMovePosition = endPosition;
+
+        Vector3 direction = endPosition - startPosition;
+        direction.Normalize();
+        
+        UpdateAnimDir(ref direction);
     }
 
-    private bool IsCanMove( short row, short col)
+    protected virtual void OnEndMove()
+    {
+        UnLockObject();
+
+        if (OnMoveEndCallBack != null)
+        {
+            OnMoveEndCallBack.Invoke();
+        }
+    }
+
+    protected virtual void CalcPosition( float fPercentage)
+    {
+        transform.position = Vector3.Lerp(_startMovePosition, _endMovePosition, MoveCurve.Evaluate(fPercentage)) + new Vector3(0, _currJumpHeight, 0);
+
+        // 끝났으면 무조건 정해진 위치로 갑니다.
+        if(fPercentage >= 1.0f)
+        {
+            transform.position = _endMovePosition;
+        }
+    }
+
+    private bool IsCanMove( int row, int col)
     {
         return !IsMoving() && TileManager.Get.IsCanMove(row, col);
     }

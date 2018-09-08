@@ -9,14 +9,14 @@ public class RollAction : MoveAction
     {
         _animInfos.InitAnimMaxSize(1, NormalDir.MAX);
 
-        _animInfos.RegisterAnimInfo(0, NormalDir.TOP, Resources.Load(GetResourcePath() + "Roll/Top", typeof(AnimationClip)) as AnimationClip);
-        _animInfos.RegisterAnimInfo(0, NormalDir.DOWN, Resources.Load(GetResourcePath() + "Roll/Down", typeof(AnimationClip)) as AnimationClip);
+        _animInfos.RegisterAnimInfo(0, NormalDir.TOP,  GetResourcePath() + "Roll/Top" );
+        _animInfos.RegisterAnimInfo(0, NormalDir.DOWN, GetResourcePath() + "Roll/Down");
 
     }
 
-    protected override void UpdateAnimDir(Vector3 moveDir)
+    protected override void UpdateAnimDir(ref Vector3 moveDir)
     {
-        base.UpdateAnimDir(moveDir);
+        base.UpdateAnimDir(ref moveDir);
 
         if( moveDir.y > 0.0f)
         {
