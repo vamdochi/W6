@@ -166,3 +166,5 @@ C:\W6\W6\Temp\bin\Debug\UnityEngine.SpatialTracking.xml
 C:\W6\W6\obj\Debug\Assembly-CSharp.csproj.CopyComplete
 C:\W6\W6\obj\Debug\Assembly-CSharp.dll
 C:\W6\W6\obj\Debug\Assembly-CSharp.pdb
+C:\W6\W6\Temp\bin\Debug\UnityEditor.UI.dll
+C:\W6\W6\Temp\bin\Debug\UnityEditor.UI.xml

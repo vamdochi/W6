@@ -10,7 +10,7 @@ public class AttackAction : BaseAction {
 
     private bool    _isCanContinueAttack;
     private bool    _isPressContinueAttack;
-    private bool    _isCanSkipAttack;
+    private bool    _isCanHandleTriggerAttack;
 
     private int     _currentAttackIndex = 0;
 
@@ -38,11 +38,6 @@ public class AttackAction : BaseAction {
                 _isPressContinueAttack = true;
             }
         }
-
-        if(_isCanSkipAttack)
-        {
-            OnAnimationEnd();
-        }
     }
 
     public bool Attack( Vector3 vAttackDir)
@@ -51,6 +46,7 @@ public class AttackAction : BaseAction {
             return false;
 
         ResetAttackIndex();
+        ResetAttackEventEnable();
 
         short targetRow = (short)(_thisObject.Row + vAttackDir.x);
         short targetCol = (short)(_thisObject.Col + vAttackDir.y);
@@ -69,21 +65,21 @@ public class AttackAction : BaseAction {
 
     public void OnAttack()
     {
-        Instantiate(Resources.Load(WeaponInfo._attackInfos[_currentAttackIndex].EffectPath, typeof(GameObject)), 
-            transform.position +_thisObject.MoveDirection * TileManager.Get.GetTileDist(), Quaternion.identity);
-    }
+        if (_isCanHandleTriggerAttack)
+        {
+            _isCanHandleTriggerAttack = false;
 
-    public void OnEnableContinueAttack()
-    {
-        _isCanContinueAttack = true;
+            Instantiate(Resources.Load(WeaponInfo._attackInfos[_currentAttackIndex].EffectPath, typeof(GameObject)),
+                transform.position + _thisObject.MoveDirection * TileManager.Get.GetTileDist(), Quaternion.identity);
+        }
     }
 
     public void OnEnableSkipAnimation()
     {
-        _isCanSkipAttack = true;
+        _isCanContinueAttack = true;
     }
 
-    public void OnAnimationEnd()
+    public override void OnAnimationDone()
     {
         if( _isPressContinueAttack)
         {
@@ -106,10 +102,10 @@ public class AttackAction : BaseAction {
 
     private void AttackOnce()
     {
+        _isCanHandleTriggerAttack = true;
         NormalDir direction = Utility.VecToDir(_thisObject.MoveDirection);
 
         PlayAnimation(_currentAttackIndex, direction);
-
     }
 
     private void EndAttack()
@@ -127,6 +123,5 @@ public class AttackAction : BaseAction {
     {
         _isPressContinueAttack  = false;
         _isCanContinueAttack    = false;
-        _isCanSkipAttack        = false;
     }
 }

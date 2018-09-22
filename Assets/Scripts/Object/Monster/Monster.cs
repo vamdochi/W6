@@ -22,6 +22,7 @@ public class Monster : BaseObject {
         base.Update();
 //        MoveUpdate();
     }
+
     public IEnumerator MoveCorutine()
     {
         while (true)

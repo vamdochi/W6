@@ -52,7 +52,7 @@ public class InputManager : SingleTon<InputManager> {
         return Input.GetKey(_keyInput.Get(act).Get(dir));
     }
 
-    void Start () {
+    void Awake () {
         _keyInput = new EnumArray<EnumArray<KeyCode>>();
         _keyInput.Allocate(InputAction.MAX);
 

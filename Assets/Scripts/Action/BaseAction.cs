@@ -32,17 +32,22 @@ public abstract class BaseAction : MonoBehaviour{
 
     protected void PlayAnimation<TDir>( int index, TDir eDir)
     {
-        CustomAnimController.PlayAnimation(_animInfos.GetIndex(index, eDir), ActionAnimTime);
+        CustomAnimController.PlayAnimation(this, _animInfos.GetIndex(index, eDir), ActionAnimTime);
     }
 
     public void LockObject()
     {
         _thisObject.LockingAction = this;
     }
-
+    
     public void UnLockObject()
     {
         _thisObject.LockingAction = null;
+    }
+
+    public virtual void OnAnimationDone()
+    {
+
     }
 
     public virtual bool IsCanDoAction()

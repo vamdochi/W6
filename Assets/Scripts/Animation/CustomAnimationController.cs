@@ -6,22 +6,34 @@ using UnityEngine;
 [System.Serializable]
 public class CustomAnimationController : MonoBehaviour {
 
-    public string ResourcePath = "";
+    public string ResourcePath = string.Empty;
 
-    private SimpleAnimation             _simpleAnimation;
-    private Animator                    _animator;
+    private BaseAction                  _driveAction        =   null;
+    private SimpleAnimation             _simpleAnimation    =   null;
+    private Animator                    _animator           =   null;
 
     void Awake() {
         _animator = GetComponent<Animator>();
         _simpleAnimation = gameObject.AddComponent<SimpleAnimation>();
+        _simpleAnimation.AnimationDoneHandler += OnAnimationDone;
+    }
+
+    public void OnAnimationDone()
+    {
+        if(_driveAction != null)
+        {
+            _driveAction.OnAnimationDone();
+        }
     }
 
     // Animation Name으로 받는것보다 Enum으로 타입들 정의한다음
     // 변경 테이블 만들어서 바꾸는게 버그낼 가능성이 줄어드는 형태임
     // 추후 변경해야됨 !! 필수
-    public void PlayAnimation( int index, float animTime)
+    public void PlayAnimation(BaseAction action, int index, float animTime)
     {
         _simpleAnimation.Play( index, animTime);
+
+        _driveAction = action;
     }
 
     public void RemoveClip( int index )

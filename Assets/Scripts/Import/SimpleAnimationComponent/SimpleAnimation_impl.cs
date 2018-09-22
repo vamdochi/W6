@@ -162,6 +162,8 @@ public partial class SimpleAnimation: MonoBehaviour
 
     protected SimpleAnimationPlayable m_Playable;
 
+    public Action AnimationDoneHandler;
+
     [SerializeField]
     protected bool m_PlayAutomatically = true;
 
@@ -223,6 +225,8 @@ public partial class SimpleAnimation: MonoBehaviour
         var playable = ScriptPlayable<SimpleAnimationPlayable>.Create(m_Graph, template, 1);
         m_Playable = playable.GetBehaviour();
         m_Playable.onDone += OnPlayableDone;
+        m_Playable.AnimationDoneHandler += OnAnimationDone;
+
         if (m_States == null)
         {
             m_States = new EditorState[1];
@@ -270,6 +274,14 @@ public partial class SimpleAnimation: MonoBehaviour
         if (m_Graph.IsValid())
         {
             m_Graph.Destroy();
+        }
+    }
+
+    private void OnAnimationDone()
+    {
+        if (AnimationDoneHandler != null)
+        {
+            AnimationDoneHandler.Invoke();
         }
     }
 

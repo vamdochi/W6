@@ -52,6 +52,8 @@ public partial class SimpleAnimationPlayable : PlayableBehaviour
     AnimationMixerPlayable m_Mixer;
 
     public System.Action onDone = null;
+    public System.Action AnimationDoneHandler = null;
+
     public SimpleAnimationPlayable()
     {
         m_States = new StateManagement();
@@ -534,7 +536,6 @@ public partial class SimpleAnimationPlayable : PlayableBehaviour
         for (int i = 0; i < m_States.Count; i++)
         {
             StateInfo state = m_States[i];
-
             //Skip deleted states
             if (state == null)
             {
@@ -573,8 +574,14 @@ public partial class SimpleAnimationPlayable : PlayableBehaviour
                 state.weightDirty = true;
                 state.enabledDirty = false;
             }
-            
-            if (state.enabled && state.wrapMode == WrapMode.Once)
+
+            if (state.enabled && state.wrapMode == WrapMode.Default)
+            {
+                if (state.playable.IsDone() && AnimationDoneHandler != null)
+                    AnimationDoneHandler.Invoke();
+            }
+
+                if (state.enabled && state.wrapMode == WrapMode.Once)
             {
                 bool stateIsDone = state.playable.IsDone();
                 float speed = m_States.GetStateSpeed(state.index);
@@ -587,7 +594,6 @@ public partial class SimpleAnimationPlayable : PlayableBehaviour
                 {
                     state.weight = 0f;
                     state.time = 0f;
-                    state.playable.SetTime(state.time);
                     state.playable.SetTime(state.time);
                     m_States.DisableState(i);
                     if (!keepStoppedPlayablesConnected)
