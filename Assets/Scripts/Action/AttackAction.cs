@@ -23,8 +23,8 @@ public class AttackAction : BaseAction {
         for (int i = 0; i < attackInfos.Length; ++i)
         {
             _animInfos.RegisterAnimInfo(i, NormalDir.BESIDE,    GetResourcePath() + "Attack/Beside/" + attackInfos[i].ResourcePath);
-            _animInfos.RegisterAnimInfo(i, NormalDir.TOP,       GetResourcePath() + "Attack/Down/" + attackInfos[i].ResourcePath);
-            _animInfos.RegisterAnimInfo(i, NormalDir.DOWN,      GetResourcePath() + "Attack/Top/" + attackInfos[i].ResourcePath);
+            _animInfos.RegisterAnimInfo(i, NormalDir.TOP,       GetResourcePath() + "Attack/Top/" + attackInfos[i].ResourcePath);
+            _animInfos.RegisterAnimInfo(i, NormalDir.DOWN,      GetResourcePath() + "Attack/Down/" + attackInfos[i].ResourcePath);
         }
     }
     private void Update()
@@ -48,19 +48,14 @@ public class AttackAction : BaseAction {
         ResetAttackIndex();
         ResetAttackEventEnable();
 
-        short targetRow = (short)(_thisObject.Row + vAttackDir.x);
-        short targetCol = (short)(_thisObject.Col + vAttackDir.y);
-
-        var targetObject = TileManager.Get.GetObject(targetRow, targetCol);
-        if (targetObject != null)
+        _thisObject.MoveDirection = vAttackDir;
+        if( AttackOnce() )
         {
-            _thisObject.MoveDirection = vAttackDir;
             LockObject();
-            AttackOnce();
             return true;
         }
-        else
-            return false;
+        return false;
+
     }
 
     public void OnAttack()
@@ -69,8 +64,24 @@ public class AttackAction : BaseAction {
         {
             _isCanHandleTriggerAttack = false;
 
-            Instantiate(Resources.Load(WeaponInfo._attackInfos[_currentAttackIndex].EffectPath, typeof(GameObject)),
-                transform.position + _thisObject.MoveDirection * TileManager.Get.GetTileDist(), Quaternion.identity);
+            GameObject effect = Instantiate(Resources.Load(WeaponInfo._attackInfos[_currentAttackIndex].EffectPath, typeof(GameObject)),
+                transform.position + _thisObject.MoveDirection * TileManager.Get.GetTileDist(), Quaternion.identity) as GameObject;
+            if( effect != null )
+            {
+                float right_dot = Vector3.Dot(Vector3.right, _thisObject.MoveDirection.normalized);
+                float up_dot = Vector3.Dot(Vector3.up, _thisObject.MoveDirection.normalized);
+
+                Quaternion q = Quaternion.identity;
+
+                if (up_dot > 0.0f)
+                {
+                    q.z = Mathf.Acos(right_dot);
+                }
+                else
+                    q.z = -Mathf.Acos(right_dot);
+
+                effect.transform.localRotation = q;
+            }
         }
     }
 
@@ -84,13 +95,9 @@ public class AttackAction : BaseAction {
         if( _isPressContinueAttack)
         {
             ++_currentAttackIndex;
-            if(_currentAttackIndex >= WeaponInfo._attackInfos.Length)
+            if(_currentAttackIndex >= WeaponInfo._attackInfos.Length || !AttackOnce())
             {
                 EndAttack();
-            }
-            else
-            {
-                AttackOnce();
             }
         }
         else
@@ -100,12 +107,29 @@ public class AttackAction : BaseAction {
         ResetAttackEventEnable();
     }
 
-    private void AttackOnce()
+    private bool AttackOnce()
     {
-        _isCanHandleTriggerAttack = true;
-        NormalDir direction = Utility.VecToDir(_thisObject.MoveDirection);
+        int targetRow = (int)(_thisObject.Row + _thisObject.MoveDirection.x);
+        int targetCol = (int)(_thisObject.Col + _thisObject.MoveDirection.y);
 
-        PlayAnimation(_currentAttackIndex, direction);
+        var targetObject = TileManager.Get.GetObject(targetRow, targetCol);
+        if (targetObject != null)
+        {
+            _isCanHandleTriggerAttack = true;
+            NormalDir direction = Utility.VecToDir(_thisObject.MoveDirection);
+
+            PlayAnimation(_currentAttackIndex, direction);
+
+            bool IsNegative = _thisObject.MoveDirection.x < 0.0f;
+
+            if (IsNegative != transform.localScale.x < 0.0f)
+            {
+                transform.localScale = new Vector3(-transform.localScale.x, transform.localScale.y, transform.localScale.z);
+            }
+            return true;
+        }
+
+        return false;
     }
 
     private void EndAttack()

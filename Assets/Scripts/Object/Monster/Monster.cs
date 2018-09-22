@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Monster : BaseObject {
 
-    public float MoveDelaySec = 2.5f;
+    public float MoveDelaySec = 10.0f;
     public MoveAction MoveAction = null;
 
     // Use this for initialization
