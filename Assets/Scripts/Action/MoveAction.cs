@@ -17,7 +17,6 @@ public class MoveAction : BaseAction {
     public float MoveTimeSec = 1.0f;
     public float MaxJumpHeight = 0.1f;
 
-
     private float   _moveLeftTime   = 0.0f;
     private float   _currJumpHeight = 0.0f;
 
@@ -70,7 +69,11 @@ public class MoveAction : BaseAction {
 
         if (IsNegative != transform.localScale.x < 0.0f)
         {
-            transform.localScale = new Vector3(-transform.localScale.x, transform.localScale.y, transform.localScale.z);
+            _thisObject.GetSpriteRenderer().flipX = true;
+        }
+        else
+        {
+            _thisObject.GetSpriteRenderer().flipX = false;
         }
     }
 

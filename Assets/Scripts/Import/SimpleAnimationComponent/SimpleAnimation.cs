@@ -210,6 +210,12 @@ public partial class SimpleAnimation: MonoBehaviour
         m_Playable.Rewind(stateName);
     }
 
+    public void Rewind(int index)
+    {
+        Kick();
+        m_Playable.Rewind(index);
+    }
+
     public State GetState(string stateName)
     {
         SimpleAnimationPlayable.IState state = m_Playable.GetState(stateName);

@@ -10,10 +10,8 @@ public class Player : BaseObject{
     public AttackAction AttackAction = null;
     public KnockBackAction KnockBackAction = null;
 
-
     public GameObject _shadow = null;
     private KeyCode _lastInputKey = KeyCode.None;
-    private const float _oriMoveTimeSec = 0.22f;
     private const float _rollTimeSec    = 0.5f;
 
 	// Use this for initialization

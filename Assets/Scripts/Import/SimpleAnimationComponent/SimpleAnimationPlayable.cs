@@ -247,7 +247,7 @@ public partial class SimpleAnimationPlayable : PlayableBehaviour
         Rewind(state.index);
     }
 
-    private void Rewind(int index)
+    public void Rewind(int index)
     {
         m_States.SetStateTime(index, 0f);
     }

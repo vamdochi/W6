@@ -38,15 +38,15 @@ public class MoveAttackAction : MoveAction {
             {
                 Player targetPlayer = targetObject as Player;
 
-//                moveRow = (int)(targetPlayer.Row + moveDir.x);
-//                moveCol = (int)(targetPlayer.Col + moveDir.y);
+                moveRow = (int)(targetPlayer.Row + moveDir.x);
+                moveCol = (int)(targetPlayer.Col + moveDir.y);
                 LockObject();
                 isDoMoveAttack = true;
 
                 InternalOnlyMove(_thisObject.transform.position, TileManager.Get.GetTilePosition(moveRow, moveCol));
 
                 return true;
-     //           targetPlayer.KnockBackAction.Move( );
+                // targetPlayer.KnockBackAction.Move( );
             }
         }
         else

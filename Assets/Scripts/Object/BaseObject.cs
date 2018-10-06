@@ -34,13 +34,23 @@ public class BaseObject : MonoBehaviour {
 
     protected   float _moveTimeSec = 0.0f;
     protected Animator _animator = null;
+    protected HittedAction _hittedAction = null;
 
     private SpriteRenderer _spriteRenderer = null;
     private const float _jumpGuage = 0.0f;
 
+    public SpriteRenderer GetSpriteRenderer()
+    {
+        return _spriteRenderer;
+    }
+
     public void OnHit( float fDamage )
     {
-        _spriteRenderer.color = new Color(1.0f, 0, 0);
+        if(_hittedAction != null)
+        {
+            _hittedAction.OnHit();
+        }
+//        _spriteRenderer.color = new Color(1.0f, 0, 0);
     }
 
     public bool IsLockAction()
@@ -53,6 +63,7 @@ public class BaseObject : MonoBehaviour {
         Status = ActionStatus.IDLE;
         _animator = GetComponent<Animator>();
         _spriteRenderer = GetComponent<SpriteRenderer>();
+        _hittedAction = GetComponent<HittedAction>();
         SetMoveTime(0.22f);
     }
 

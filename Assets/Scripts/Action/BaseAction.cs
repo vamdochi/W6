@@ -34,6 +34,11 @@ public abstract class BaseAction : MonoBehaviour{
     {
         CustomAnimController.PlayAnimation(this, _animInfos.GetIndex(index, eDir), ActionAnimTime);
     }
+    protected void ResetAnimationTime<TDir>( int index, TDir eDir)
+    {
+        CustomAnimController.ResetAnimationTime( _animInfos.GetIndex(index, eDir));
+
+    }
 
     public void LockObject()
     {
@@ -45,6 +50,17 @@ public abstract class BaseAction : MonoBehaviour{
         _thisObject.LockingAction = null;
     }
 
+
+    public bool RequestCancelPlayingAction()
+    {
+        if( _thisObject.IsLockAction())
+        {
+            return _thisObject.LockingAction.OnCancelAction();
+        }
+
+        return true;
+    }
+
     public virtual void OnAnimationDone()
     {
 
@@ -53,5 +69,11 @@ public abstract class BaseAction : MonoBehaviour{
     public virtual bool IsCanDoAction()
     {
         return !_thisObject.IsLockAction();
+    }
+
+    public virtual bool OnCancelAction()
+    {
+        _thisObject.LockingAction = null;
+        return true;
     }
 }

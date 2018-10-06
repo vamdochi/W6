@@ -35,6 +35,10 @@ public class CustomAnimationController : MonoBehaviour {
 
         _driveAction = action;
     }
+    public void ResetAnimationTime(int index)
+    {
+        _simpleAnimation.Rewind(index);
+    }
 
     public void RemoveClip( int index )
     {
