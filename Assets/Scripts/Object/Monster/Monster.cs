@@ -5,6 +5,7 @@ using UnityEngine;
 public class Monster : BaseObject {
 
     public float MoveDelaySec = 10.0f;
+    public IdleAction IdleAction = null;
     public MoveAction MoveAction = null;
 
     // Use this for initialization
@@ -13,14 +14,20 @@ public class Monster : BaseObject {
         if (MoveAction == null)
             MoveAction = GetComponent<MoveAction>();
 
+        if (IdleAction == null)
+            IdleAction = GetComponent<IdleAction>();
+
         base.Initialize();
         StartCoroutine(MoveCorutine());
 	}
 	
 	// Update is called once per frame
 	protected override void Update () {
+        if (!IsLockAction())
+        {
+            IdleAction.Idle();
+        }
         base.Update();
-//        MoveUpdate();
     }
 
     public IEnumerator MoveCorutine()
