@@ -22,6 +22,22 @@ public static class Utility
         // 그외엔 사이드입니다
         return BaseAction.NormalDir.BESIDE;
     }
+    public static string VecToDirString( Vector3 direction)
+    {
+        switch( VecToDir(direction) )
+        {
+            case BaseAction.NormalDir.BESIDE:
+                return "BeSide";
+
+            case BaseAction.NormalDir.DOWN:
+                return "Down";
+
+            case BaseAction.NormalDir.TOP:
+                return "Top";
+        }
+
+        return "Beside";
+    }
 
     public static float linear(float start, float end, float value)
     {

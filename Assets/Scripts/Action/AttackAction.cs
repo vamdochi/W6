@@ -16,15 +16,16 @@ public class AttackAction : BaseAction {
 
     protected override void LoadResource()
     {
-        var attackInfos = WeaponInfo._attackInfos;
-
-        _animInfos.InitAnimMaxSize(attackInfos.Length, NormalDir.MAX);
-        
-        for (int i = 0; i < attackInfos.Length; ++i)
+        if (WeaponInfo.AttackCount > 0)
         {
-            _animInfos.RegisterAnimInfo(i, NormalDir.BESIDE,    GetResourcePath() + "Attack/Beside/" + attackInfos[i].ResourcePath);
-            _animInfos.RegisterAnimInfo(i, NormalDir.TOP,       GetResourcePath() + "Attack/Top/" + attackInfos[i].ResourcePath);
-            _animInfos.RegisterAnimInfo(i, NormalDir.DOWN,      GetResourcePath() + "Attack/Down/" + attackInfos[i].ResourcePath);
+            _animInfos.InitAnimMaxSize(WeaponInfo.AttackCount, NormalDir.MAX);
+
+            for (int i = 0; i < WeaponInfo.AttackCount; ++i)
+            {
+                _animInfos.RegisterAnimInfo(i, NormalDir.BESIDE, GetResourcePath() + "Attack/" + WeaponInfo.ResourcePath + "Beside/" + i.ToString() + "/" + i.ToString());
+                _animInfos.RegisterAnimInfo(i, NormalDir.TOP, GetResourcePath() + "Attack/" + WeaponInfo.ResourcePath + "Top/" + i.ToString() + "/" + i.ToString());
+                _animInfos.RegisterAnimInfo(i, NormalDir.DOWN, GetResourcePath() + "Attack/" + WeaponInfo.ResourcePath + "Down/" + i.ToString() + "/" + i.ToString());
+            }
         }
     }
     private void Update()
@@ -64,23 +65,30 @@ public class AttackAction : BaseAction {
         {
             _isCanHandleTriggerAttack = false;
 
-            GameObject effect = Instantiate(Resources.Load(WeaponInfo._attackInfos[_currentAttackIndex].EffectPath, typeof(GameObject)),
-                transform.position + _thisObject.MoveDirection * TileManager.Get.GetTileDist(), Quaternion.identity) as GameObject;
+            string effectPath = WeaponInfo.EffectPath + Utility.VecToDirString(_thisObject.MoveDirection) + "/" + (_currentAttackIndex).ToString()
+                + "/" + (_currentAttackIndex).ToString();
+
+            GameObject effect = Instantiate(Resources.Load(effectPath, typeof(GameObject)), transform.position, Quaternion.identity) as GameObject;
             if( effect != null )
             {
-                float right_dot = Vector3.Dot(Vector3.right, _thisObject.MoveDirection.normalized);
-                float up_dot = Vector3.Dot(Vector3.up, _thisObject.MoveDirection.normalized);
-
-                Quaternion q = Quaternion.identity;
-
-                if (up_dot > 0.0f)
+                var effect_sprite = effect.GetComponent<SpriteRenderer>();
+                if(effect_sprite != null)
                 {
-                    q.z = Mathf.Acos(right_dot);
+                    effect_sprite.transform.localScale = new Vector3( _thisObject.GetSpriteRenderer().flipX ? - 1 : 1 , 1 , 1 );
                 }
-                else
-                    q.z = -Mathf.Acos(right_dot);
+            //    float right_dot = Vector3.Dot(Vector3.right, _thisObject.MoveDirection.normalized);
+            //    float up_dot = Vector3.Dot(Vector3.up, _thisObject.MoveDirection.normalized);
 
-                effect.transform.localRotation = q;
+            //    Quaternion q = Quaternion.identity;
+
+            //    if (up_dot > 0.0f)
+            //    {
+            //        q.z = Mathf.Acos(right_dot);
+            //    }
+            //    else
+            //        q.z = -Mathf.Acos(right_dot);
+
+            //    effect.transform.localRotation = q;
             }
         }
     }
@@ -95,7 +103,7 @@ public class AttackAction : BaseAction {
         if( _isPressContinueAttack)
         {
             ++_currentAttackIndex;
-            if(_currentAttackIndex >= WeaponInfo._attackInfos.Length || !AttackOnce())
+            if(_currentAttackIndex >= WeaponInfo.AttackCount || !AttackOnce())
             {
                 EndAttack();
             }
@@ -122,9 +130,13 @@ public class AttackAction : BaseAction {
 
             bool IsNegative = _thisObject.MoveDirection.x < 0.0f;
 
-            if (IsNegative != transform.localScale.x < 0.0f)
+            if (IsNegative)
             {
-                transform.localScale = new Vector3(-transform.localScale.x, transform.localScale.y, transform.localScale.z);
+                _thisObject.GetSpriteRenderer().flipX = true;
+            }
+            else
+            {
+                _thisObject.GetSpriteRenderer().flipX = false;
             }
             return true;
         }

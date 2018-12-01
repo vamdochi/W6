@@ -4,18 +4,12 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [Serializable]
-public class AttackInfo
-{
-    [SerializeField]
-    public string ResourcePath;
-
-    [SerializeField]
-    public string EffectPath;
-}
-
-[Serializable]
 public class WeaponInfo  {
 
     [SerializeField]
-    public AttackInfo[] _attackInfos;
+    public Int32 AttackCount;
+
+    public string ResourcePath;
+
+    public string EffectPath;
 }

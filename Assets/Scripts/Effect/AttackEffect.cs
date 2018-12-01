@@ -7,16 +7,26 @@ public class AttackEffect : MonoBehaviour {
     const uint _maxHitObjectCount = 10;
 
     private GameObject[] _hitedObjects = new GameObject[_maxHitObjectCount];
-
+    private Animator _animator = null;
+    
 	// Use this for initialization
 	void Start () {
-		
-	}
+        _animator = GetComponent<Animator>();
+    }
 	
 	// Update is called once per frame
 	void Update () {
+        if(_animator == null)
+        {
+            OnAnimationEnd();
+            return;
+        }
 
-	}
+        if(_animator.GetCurrentAnimatorStateInfo(0).normalizedTime >= ( 1.0f - float.Epsilon) )
+        {
+            OnAnimationEnd();
+        }
+    }
 
     public void OnAnimationEnd()
     {

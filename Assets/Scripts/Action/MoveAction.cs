@@ -67,7 +67,7 @@ public class MoveAction : BaseAction {
 
         bool IsNegative = moveDir.x < 0.0f;
 
-        if (IsNegative != transform.localScale.x < 0.0f)
+        if (IsNegative)
         {
             _thisObject.GetSpriteRenderer().flipX = true;
         }
