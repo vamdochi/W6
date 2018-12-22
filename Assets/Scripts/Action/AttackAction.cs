@@ -10,7 +10,7 @@ public class AttackAction : BaseAction {
 
     private bool    _isCanContinueAttack;
     private bool    _isPressContinueAttack;
-    private bool    _isCanHandleTriggerAttack;
+    private bool    _isCanHandleTriggerAttack = true;
 
     private int     _currentAttackIndex = 0;
 
@@ -61,6 +61,8 @@ public class AttackAction : BaseAction {
 
     public void OnAttack()
     {
+        Debug.Log("Attack");
+
         if (_isCanHandleTriggerAttack)
         {
             _isCanHandleTriggerAttack = false;
@@ -71,10 +73,10 @@ public class AttackAction : BaseAction {
             GameObject effect = Instantiate(Resources.Load(effectPath, typeof(GameObject)), transform.position, Quaternion.identity) as GameObject;
             if( effect != null )
             {
-                var effect_sprite = effect.GetComponent<SpriteRenderer>();
-                if(effect_sprite != null)
+                var attack_effect = effect.GetComponent<AttackEffect>();
+                if (attack_effect != null)
                 {
-                    effect_sprite.transform.localScale = new Vector3( _thisObject.GetSpriteRenderer().flipX ? - 1 : 1 , 1 , 1 );
+                    attack_effect.SetOriginTransform( transform.position, Quaternion.identity, new Vector3(_thisObject.GetSpriteRenderer().flipX ? -1 : 1, 1, 1));
                 }
             //    float right_dot = Vector3.Dot(Vector3.right, _thisObject.MoveDirection.normalized);
             //    float up_dot = Vector3.Dot(Vector3.up, _thisObject.MoveDirection.normalized);
@@ -100,7 +102,7 @@ public class AttackAction : BaseAction {
 
     public override void OnAnimationDone()
     {
-        if( _isPressContinueAttack)
+        if ( _isPressContinueAttack)
         {
             ++_currentAttackIndex;
             if(_currentAttackIndex >= WeaponInfo.AttackCount || !AttackOnce())
@@ -113,6 +115,12 @@ public class AttackAction : BaseAction {
             EndAttack();
         }
         ResetAttackEventEnable();
+
+    }
+
+    public void EnableTriggerAttack()
+    {
+        _isCanHandleTriggerAttack = true;
     }
 
     private bool AttackOnce()
@@ -123,10 +131,10 @@ public class AttackAction : BaseAction {
         var targetObject = TileManager.Get.GetObject(targetRow, targetCol);
         if (targetObject != null)
         {
-            _isCanHandleTriggerAttack = true;
             NormalDir direction = Utility.VecToDir(_thisObject.MoveDirection);
 
             PlayAnimation(_currentAttackIndex, direction);
+            Invoke("EnableTriggerAttack", 0.05f);
 
             bool IsNegative = _thisObject.MoveDirection.x < 0.0f;
 

@@ -6,6 +6,10 @@ public class AttackEffect : MonoBehaviour {
 
     const uint _maxHitObjectCount = 10;
 
+    private Vector3 _origin_location;
+    private Vector3 _origin_scale;
+    private Quaternion _origin_quat;
+
     private GameObject[] _hitedObjects = new GameObject[_maxHitObjectCount];
     private Animator _animator = null;
     
@@ -16,7 +20,11 @@ public class AttackEffect : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-        if(_animator == null)
+
+        transform.SetPositionAndRotation(_origin_location, _origin_quat);
+        transform.localScale = _origin_scale;
+
+        if (_animator == null)
         {
             OnAnimationEnd();
             return;
@@ -31,6 +39,16 @@ public class AttackEffect : MonoBehaviour {
     public void OnAnimationEnd()
     {
         Destroy(gameObject);
+    }
+
+    public void SetOriginTransform( Vector3 location, Quaternion quat, Vector3 scale)
+    {
+        _origin_location = location;
+        _origin_quat = quat;
+        _origin_scale = scale;
+
+        transform.SetPositionAndRotation(_origin_location, _origin_quat);
+        transform.localScale = _origin_scale;
     }
 
     public void OnCollisionEnter2D(Collision2D collision)

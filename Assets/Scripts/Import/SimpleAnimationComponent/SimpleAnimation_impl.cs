@@ -221,7 +221,6 @@ public partial class SimpleAnimation: MonoBehaviour
         m_Graph = PlayableGraph.Create();
         m_Graph.SetTimeUpdateMode(DirectorUpdateMode.GameTime);
         SimpleAnimationPlayable template = new SimpleAnimationPlayable();
-
         var playable = ScriptPlayable<SimpleAnimationPlayable>.Create(m_Graph, template, 1);
         m_Playable = playable.GetBehaviour();
         m_Playable.onDone += OnPlayableDone;

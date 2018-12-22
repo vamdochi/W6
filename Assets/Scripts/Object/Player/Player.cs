@@ -16,6 +16,7 @@ public class Player : BaseObject{
 
 	// Use this for initialization
 	void Start () {
+        // Time.timeScale = 0.5f;
         base.Initialize();
 
         // Load Action Func으로 뺴세요

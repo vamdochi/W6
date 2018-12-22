@@ -510,7 +510,6 @@ public partial class SimpleAnimationPlayable : PlayableBehaviour
                 state.enabled = false;
                 state.enabledDirty = true;
                 state.weightDirty = true;
-                state.playable.SetTime(0f);
                 state.playable.SetDone(false);
             }
         }
