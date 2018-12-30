@@ -44,11 +44,11 @@ public class BaseObject : MonoBehaviour {
         return _spriteRenderer;
     }
 
-    public void OnHit( float fDamage )
+    public void OnHitted( float fDamage )
     {
         if(_hittedAction != null)
         {
-            _hittedAction.OnHit();
+            _hittedAction.OnHitted();
         }
 //        _spriteRenderer.color = new Color(1.0f, 0, 0);
     }
@@ -219,4 +219,8 @@ public class BaseObject : MonoBehaviour {
         _animator.SetInteger("AnimPer", (int)( 100 * fPer));
     }
 
+    public virtual void OnHit()
+    {
+        Camera.main.GetComponent<TargetCamera>().ShakeCamera(60.0f);
+    }
 }

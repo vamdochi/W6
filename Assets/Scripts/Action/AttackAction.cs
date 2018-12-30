@@ -77,6 +77,7 @@ public class AttackAction : BaseAction {
                 if (attack_effect != null)
                 {
                     attack_effect.SetOriginTransform( transform.position, Quaternion.identity, new Vector3(_thisObject.GetSpriteRenderer().flipX ? -1 : 1, 1, 1));
+                    attack_effect.Owner = _thisObject;
                 }
             //    float right_dot = Vector3.Dot(Vector3.right, _thisObject.MoveDirection.normalized);
             //    float up_dot = Vector3.Dot(Vector3.up, _thisObject.MoveDirection.normalized);

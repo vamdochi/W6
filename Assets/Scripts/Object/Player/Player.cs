@@ -39,6 +39,7 @@ public class Player : BaseObject{
         var mainCamera = Camera.main.GetComponent<TargetCamera>();
 
         MoveAction.OnMoveEndCallBack += mainCamera.OnUpdateCamera;
+        RollAction.OnMoveEndCallBack += mainCamera.OnUpdateCamera;
         mainCamera.SetTarget(this);
     }
 	
@@ -84,7 +85,7 @@ public class Player : BaseObject{
         var TargetObject = TileManager.Get.GetObject(targetRow, targetCol);
         if( TargetObject != null)
         {
-            TargetObject.OnHit(1.0f);
+            TargetObject.OnHitted(1.0f);
         }
         if( _lastInputKey != KeyCode.None)
         {

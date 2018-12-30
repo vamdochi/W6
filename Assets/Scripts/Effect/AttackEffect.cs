@@ -6,6 +6,8 @@ public class AttackEffect : MonoBehaviour {
 
     const uint _maxHitObjectCount = 10;
 
+    public BaseObject Owner;
+
     private Vector3 _origin_location;
     private Vector3 _origin_scale;
     private Quaternion _origin_quat;
@@ -66,6 +68,8 @@ public class AttackEffect : MonoBehaviour {
         }
 
         _hitedObjects[i] = otherObject;
-        otherObject.GetComponent<BaseObject>().OnHit(1.0f);
+        otherObject.GetComponent<BaseObject>().OnHitted(1.0f);
+        if( Owner != null)
+            Owner.OnHit();
     }
 }

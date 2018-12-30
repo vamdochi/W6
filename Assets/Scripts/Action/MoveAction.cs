@@ -93,6 +93,10 @@ public class MoveAction : BaseAction {
 
             InternalOnlyMove(_thisObject.transform.position, TileManager.Get.GetTilePosition(moveRow, moveCol));
 
+            if (OnMoveEndCallBack != null)
+            {
+                OnMoveEndCallBack.Invoke();
+            }
             return true;
         }
         return false;
@@ -114,10 +118,10 @@ public class MoveAction : BaseAction {
     {
         UnLockObject();
 
-        if (OnMoveEndCallBack != null)
-        {
-            OnMoveEndCallBack.Invoke();
-        }
+        //if (OnMoveEndCallBack != null)
+        //{
+        //    OnMoveEndCallBack.Invoke();
+        //}
     }
 
     protected virtual void CalcPosition( float fPercentage)

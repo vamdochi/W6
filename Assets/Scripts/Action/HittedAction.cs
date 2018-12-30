@@ -14,7 +14,7 @@ public class HittedAction : BaseAction {
 
     }
 
-    public void OnHit()
+    public void OnHitted()
     {
         if( RequestCancelPlayingAction() )
         {
