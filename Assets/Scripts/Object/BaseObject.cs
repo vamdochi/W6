@@ -44,11 +44,11 @@ public class BaseObject : MonoBehaviour {
         return _spriteRenderer;
     }
 
-    public void OnHitted( float fDamage )
+    public void OnHitted( BaseObject attacker, float fDamage )
     {
         if(_hittedAction != null)
         {
-            _hittedAction.OnHitted();
+            _hittedAction.OnHitted( attacker );
         }
 //        _spriteRenderer.color = new Color(1.0f, 0, 0);
     }

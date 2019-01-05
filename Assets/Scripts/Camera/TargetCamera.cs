@@ -92,7 +92,6 @@ public class TargetCamera : MonoBehaviour {
             currShakeCount++;
         }
 
-        Debug.Log("End_2");
 
         while (_CameraShakeVector.magnitude > 0.1f)
         {
@@ -102,7 +101,6 @@ public class TargetCamera : MonoBehaviour {
 
             yield return null;
         }
-        Debug.Log("End_3");
 
         _CameraShakeVector = Vector2.zero;
         _IsShaking = false;
@@ -113,16 +111,16 @@ public class TargetCamera : MonoBehaviour {
     {
         if (TargetObject != null)
         {
-            Vector3 prevPosition = transform.position.Clone() - new Vector3( _CameraShakeVector.x ,_CameraShakeVector.y, 0.0f );
+            Vector3 prevPosition = transform.position - new Vector3( _CameraShakeVector.x ,_CameraShakeVector.y, 0.0f );
             float elapsedTime = -0.5f;
 
             while (elapsedTime < 1.0f)
             {
-                Vector3 endPosition = TargetObject.transform.position.Clone();
+                Vector3 endPosition = TargetObject.transform.position;
                 endPosition.z = prevPosition.z;
 
                 elapsedTime += Time.deltaTime * (1.0f / _moveTotalSec);
-                _originalPosition = Vector3.Lerp(prevPosition, endPosition, Utility.easeOutCirc(0.0f, 1.0f, elapsedTime));
+                _originalPosition = Vector3.Lerp(prevPosition, endPosition, Utility.easeOutCirc(0.0f, 1.0f, Mathf.Max( 0.0f, elapsedTime)));
                 yield return null;
             }
         }

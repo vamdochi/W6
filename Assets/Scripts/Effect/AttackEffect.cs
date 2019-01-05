@@ -68,7 +68,7 @@ public class AttackEffect : MonoBehaviour {
         }
 
         _hitedObjects[i] = otherObject;
-        otherObject.GetComponent<BaseObject>().OnHitted(1.0f);
+        otherObject.GetComponent<BaseObject>().OnHitted(Owner, 1.0f);
         if( Owner != null)
             Owner.OnHit();
     }
