@@ -5,7 +5,6 @@ using System.IO;
 using UnityEditor;
 using UnityEngine;
 
-
 [System.Serializable]
 public abstract class BaseAction : MonoBehaviour{
     public enum NormalDir : int { TOP = 0, DOWN, BESIDE, MAX }

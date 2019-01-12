@@ -85,7 +85,7 @@ public class Player : BaseObject{
         var TargetObject = TileManager.Get.GetObject(targetRow, targetCol);
         if( TargetObject != null)
         {
-            TargetObject.OnHitted(1.0f);
+            TargetObject.OnHitted( this, 1.0f);
         }
         if( _lastInputKey != KeyCode.None)
         {

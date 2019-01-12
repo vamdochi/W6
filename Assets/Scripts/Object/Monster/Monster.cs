@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+[System.Serializable]
 public class Monster : BaseObject {
 
     public float MoveDelaySec = 10.0f;
