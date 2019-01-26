@@ -38,7 +38,7 @@ public class TileManager : MonoBehaviour {
     
     public bool RequestObjectMove(BaseObject Object, int row, int col )
     {
-        if( IsCanMove( row, col))
+        if( IsCanMove( row, col, Object))
         {
             MoveObject( Object, row, col);
             return true;
@@ -62,15 +62,26 @@ public class TileManager : MonoBehaviour {
         Object.Col = col;
         Object.Row = row;
     }
-    public bool IsCanMove( int row, int col)
+
+    public bool IsCanMove( int row, int col, BaseObject self)
     {
         if (row >= _tiles.MaxRow || row < 0 ||
             col >= _tiles.MaxCol || col < 0) return false; // Array 넘어갔을시 짤라부려!
 
         int position = col * _tiles.MaxRow + row; // 작은 퍼포먼스를 위하여 랜덤접근~_~
-        if (_tiles[position] != null)
+        Tile tile = _tiles[position];
+        if (tile != null)
         {
-            return _tiles[position].IsCanMove();
+            if( tile.IsCanMove() )
+            {
+                return true;
+            }
+
+            // 제자리 이동도 가능합니다.
+            if( tile.Object == self )
+            {
+                return true;
+            }
         }
         return false;
     }

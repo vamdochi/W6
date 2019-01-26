@@ -82,7 +82,7 @@ public class MoveAttackAction : MoveAction {
     {
         if (isDoMoveAttack)
         {
-            if (TileManager.Get.IsCanMove((int)moveTarget.x, (int)moveTarget.y))
+            if (TileManager.Get.IsCanMove((int)moveTarget.x, (int)moveTarget.y, _thisObject))
             {
                 TileManager.Get.MoveObject(_thisObject, (int)moveTarget.x, (int)moveTarget.y);
                 base.OnEndMove();

@@ -169,7 +169,7 @@ public class BaseObject : MonoBehaviour {
             short MoveRow = (short)(Row + MoveDirection.x);
             short MoveCol = (short)(Col + MoveDirection.y);
 
-            if (TileManager.Get.IsCanMove( MoveRow, MoveCol ) && ChangeStatus(ActionStatus.MOVE) )
+            if (TileManager.Get.IsCanMove( MoveRow, MoveCol, this ) && ChangeStatus(ActionStatus.MOVE) )
             {
                 TileManager.Get.MoveObject(this, MoveRow, MoveCol);
                 _animator.SetInteger("AnimPer", 0);
@@ -221,6 +221,9 @@ public class BaseObject : MonoBehaviour {
 
     public virtual void OnHit()
     {
-        Camera.main.GetComponent<TargetCamera>().ShakeCamera(60.0f);
+        if( Utility.GetMainTargetCamera() != null )
+        {
+            Utility.GetMainTargetCamera().ShakeCamera(60.0f);
+        }
     }
 }
