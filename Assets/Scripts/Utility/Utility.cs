@@ -76,6 +76,14 @@ public static class Utility
         return "Beside";
     }
 
+    public static bool NearlyEqualZero( float value, float eps = 0.001f)
+    {
+        if (value > -eps && value < eps)
+            return true;
+
+        return false;
+    }
+
     public static float linear(float start, float end, float value)
     {
         return Mathf.Lerp(start, end, value);

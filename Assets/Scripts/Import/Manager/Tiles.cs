@@ -96,11 +96,26 @@ public class Tiles{
         }
         private set { }
     }
+    public Tile this[Vector3 position]
+    {
+        get
+        {
+            int row = (int)((position.x + BlockDistance * 0.5f) / BlockDistance);
+            int col = (int)((position.y + BlockDistance * 0.5f) / BlockDistance);
+
+            if (row < 0 || row >= MaxRow || col < 0 || col >= MaxCol)
+                return null;
+
+            return this[row, col];
+        }
+        private set { }
+    }
     public Tile this[int index] {  get { return _tiles[index]; } }
     public Tile this[int row, int col]
     {
-        get {
-                return _tiles[col * MaxRow + row];
+        get
+        {
+            return _tiles[col * MaxRow + row];
         }
         set
         {

@@ -17,6 +17,7 @@ public class TileManager : MonoBehaviour {
     public int BlockSize;
 
     private Tiles _tiles;
+    private GameObject _mouse_tile_border;
 
     public TileManager()
     {
@@ -34,6 +35,25 @@ public class TileManager : MonoBehaviour {
 
     void Update()
     {
+        if (_mouse_tile_border != null)
+        {
+            Vector3 mousePosition = Utility.GetMouseWorldPosition();
+
+            Tile tile = _tiles[mousePosition];
+
+            if (tile != null)
+            {
+                if(!_mouse_tile_border.activeSelf)
+                {
+                    _mouse_tile_border.SetActive(true);
+                }
+                _mouse_tile_border.transform.position = tile.transform.position;
+            }
+            else if( _mouse_tile_border.activeSelf)
+            {
+                _mouse_tile_border.SetActive(false);
+            }
+        }
     }
     
     public bool RequestObjectMove(BaseObject Object, int row, int col )
@@ -108,6 +128,15 @@ public class TileManager : MonoBehaviour {
                 name.AppendFormat("tile {0} / {1}", y, x);
                 go.name = name.ToString();
             }
+        }
+
+        const string tile_attack_border_path = "Prefab/Tile/tile_attack_border";
+        GameObject tile_attack_border = Instantiate( Resources.Load(tile_attack_border_path),new Vector3(0.0f, 0.0f, 0.0f), Quaternion.identity) as GameObject;
+
+        if(tile_attack_border != null)
+        {
+            tile_attack_border.SetActive(false);
+            _mouse_tile_border = tile_attack_border;
         }
     }
 }

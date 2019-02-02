@@ -9,6 +9,7 @@ public class Player : BaseObject{
     public RollAction RollAction = null;
     public AttackAction AttackAction = null;
     public KnockBackAction KnockBackAction = null;
+    public BackStepAction BackStepAction = null;
 
     public GameObject _shadow = null;
 
@@ -35,6 +36,9 @@ public class Player : BaseObject{
 
         if (KnockBackAction == null)
             KnockBackAction = GetComponent<KnockBackAction>();
+
+        if (BackStepAction == null)
+            BackStepAction = GetComponent<BackStepAction>();
 
 
         var mainCamera = Camera.main.GetComponent<TargetCamera>();
@@ -180,13 +184,58 @@ public class Player : BaseObject{
         {
             bool moveResult = false;
 
+            bool do_backstep = false;
+
+            if( IsLockAction() && LockingAction.GetType() == typeof(AttackAction) )
+            {
+                switch (Utility.VecToDir(MoveDirection))
+                {
+                    case BaseAction.NormalDir.BESIDE:
+                        if (GetSpriteRenderer().flipX)
+                        {
+                            if (direction.x > 0.0f)
+                            {
+                                do_backstep = true;
+                            }
+                        }
+                        else
+                        {
+                            if (direction.x < 0.0f)
+                            {
+                                do_backstep = true;
+                            }
+                        }
+                        break;
+
+                    case BaseAction.NormalDir.TOP:
+                        if (direction.y < 0.0f)
+                        {
+                            do_backstep = true;
+                        }
+                        break;
+                    case BaseAction.NormalDir.DOWN:
+                        if (direction.y > 0.0f)
+                        {
+                            do_backstep = true;
+                        }
+                        break;
+                }
+            }
+
             if( direction.x !=0 && direction.y != 0)
             {
                 moveResult = RollAction.Move(direction);
             }
             else
             {
-                moveResult = MoveAction.Move(direction);
+                if (do_backstep)
+                {
+                    moveResult = BackStepAction.Move(direction);
+                }
+                else
+                {
+                    moveResult = MoveAction.Move(direction);
+                }
             }
 
         }

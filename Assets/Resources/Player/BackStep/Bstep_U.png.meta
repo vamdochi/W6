@@ -1,13 +1,13 @@
 fileFormatVersion: 2
-guid: e51f9323dc6a79f4d94855bb64a42e7c
+guid: 5adf39e3a76314a478ea2e835436f04b
 TextureImporter:
   fileIDToRecycleName:
-    21300000: Bstep_D_0
-    21300002: Bstep_D_1
-    21300004: Bstep_D_2
-    21300006: Bstep_D_3
-    21300008: Bstep_D_4
-    21300010: Bstep_D_5
+    21300000: Bstep_U_0
+    21300002: Bstep_U_1
+    21300004: Bstep_U_2
+    21300006: Bstep_U_3
+    21300008: Bstep_U_4
+    21300010: Bstep_U_5
   externalObjects: {}
   serializedVersion: 7
   mipmaps:
@@ -37,7 +37,7 @@ TextureImporter:
   maxTextureSize: 2048
   textureSettings:
     serializedVersion: 2
-    filterMode: -1
+    filterMode: 0
     aniso: -1
     mipBias: -100
     wrapU: 1
@@ -51,9 +51,9 @@ TextureImporter:
   spriteMeshType: 1
   alignment: 0
   spritePivot: {x: 0.5, y: 0.5}
-  spritePixelsToUnits: 100
+  spritePixelsToUnits: 1
   spriteBorder: {x: 0, y: 0, z: 0, w: 0}
-  spriteGenerateFallbackPhysicsShape: 0
+  spriteGenerateFallbackPhysicsShape: 1
   alphaUsage: 1
   alphaIsTransparency: 1
   spriteTessellationDetail: -1
@@ -90,7 +90,7 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Bstep_D_0
+      name: Bstep_U_0
       rect:
         serializedVersion: 2
         x: 0
@@ -104,13 +104,13 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: c02e17dc8657a2e419a07991d24a7f66
+      spriteID: 79873540266ec154ba64ed3267524e78
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Bstep_D_1
+      name: Bstep_U_1
       rect:
         serializedVersion: 2
         x: 84
@@ -124,13 +124,13 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 1f3cb8ab9d62cd240af37997c7046a24
+      spriteID: 5bacc8e56c18a22419f1aff779093a91
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Bstep_D_2
+      name: Bstep_U_2
       rect:
         serializedVersion: 2
         x: 168
@@ -144,13 +144,13 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 1c84c5840a477d540ac53a7d6e200d2a
+      spriteID: 4e913a334c9662b4aa98d9d6a63849e7
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Bstep_D_3
+      name: Bstep_U_3
       rect:
         serializedVersion: 2
         x: 252
@@ -164,13 +164,13 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 2cb10cd109232b242b3ab05b8cfa3a30
+      spriteID: 8590accddda423543ac32ada9a4f1040
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Bstep_D_4
+      name: Bstep_U_4
       rect:
         serializedVersion: 2
         x: 336
@@ -184,13 +184,13 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 83a3392d48b9a1d49b62f5a47ac97aa0
+      spriteID: d5c91b8c23d61ac41b0bf0e306878b43
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Bstep_D_5
+      name: Bstep_U_5
       rect:
         serializedVersion: 2
         x: 420
@@ -204,7 +204,7 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: e3b180b38e664b348bbff8702ff43ffd
+      spriteID: 61887cdc319d1dc40aa9f1ee96cd52e8
       vertices: []
       indices: 
       edges: []
@@ -212,7 +212,7 @@ TextureImporter:
     outline: []
     physicsShape: []
     bones: []
-    spriteID: 10c7cda9e01ee424c977c10dce379f23
+    spriteID: b21955780609cc94ba6644e684f16044
     vertices: []
     indices: 
     edges: []
