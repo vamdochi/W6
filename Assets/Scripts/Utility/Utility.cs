@@ -4,9 +4,46 @@ using UnityEngine;
 
 public static class Utility
 {
+    private static TargetCamera _main_camera;
+
+    public static TargetCamera GetMainTargetCamera()
+    {
+        if (_main_camera == null)
+        {
+            if (Camera.main != null)
+            {
+                _main_camera = Camera.main.GetComponent<TargetCamera>();
+            }
+        }
+        return _main_camera;
+    }
+
+    public static Vector3 GetMouseWorldPosition()
+    {
+        Vector3 world_position = Vector3.zero;
+
+        if(Camera.main != null )
+        {
+            world_position = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+        }
+
+        return world_position;
+    }
+
+    public static Vector3 NormalizeIntVector( Vector3 direction)
+    {
+        if( Mathf.Abs( direction.x )> Mathf.Abs( direction.y ) )
+        {
+            return new Vector3( direction.x > 0.0f ? 1.0f : -1.0f, 0 , 0 );
+        }
+
+        return new Vector3(0, direction.y > 0.0f ? 1.0f : -1.0f, 0);
+    }
+
+
     public static BaseAction.NormalDir VecToDir(Vector3 direction)
     {
-        float dot = Vector3.Dot(direction, Vector3.up);
+        float dot = Vector3.Dot(direction.normalized, Vector3.up);
 
         // up벡터기준 45도이내면~
         if ( dot >  0.7071f)

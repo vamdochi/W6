@@ -61,11 +61,11 @@ public class InputManager : SingleTon<InputManager> {
             _keyInput[i] = new EnumArray<KeyCode>();
             _keyInput[i].Allocate(InputDirection.MAX);
         }
-
-        RegisterInputKey(InputAction.PLAYER_ATTACK, InputDirection.TOP, KeyCode.W);
-        RegisterInputKey(InputAction.PLAYER_ATTACK, InputDirection.LEFT, KeyCode.A);
-        RegisterInputKey(InputAction.PLAYER_ATTACK, InputDirection.DOWN, KeyCode.S);
-        RegisterInputKey(InputAction.PLAYER_ATTACK, InputDirection.RIGHT, KeyCode.D);
+        
+        RegisterInputKey(InputAction.PLAYER_ATTACK, InputDirection.TOP, KeyCode.Mouse0);
+        RegisterInputKey(InputAction.PLAYER_ATTACK, InputDirection.LEFT, KeyCode.Mouse0);
+        RegisterInputKey(InputAction.PLAYER_ATTACK, InputDirection.DOWN, KeyCode.Mouse0);
+        RegisterInputKey(InputAction.PLAYER_ATTACK, InputDirection.RIGHT, KeyCode.Mouse0);
 
     }
 	

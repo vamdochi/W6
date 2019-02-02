@@ -11,6 +11,7 @@ public class Player : BaseObject{
     public KnockBackAction KnockBackAction = null;
 
     public GameObject _shadow = null;
+
     private KeyCode _lastInputKey = KeyCode.None;
     private const float _rollTimeSec    = 0.5f;
 
@@ -188,15 +189,17 @@ public class Player : BaseObject{
                 moveResult = MoveAction.Move(direction);
             }
 
-            if( moveResult)
-            {
-                MoveDirection = direction;
-            }
-            else
-            {
-                AttackAction.Attack(direction);
-            }
         }
+
+        if( Input.GetMouseButtonDown(0))
+        {
+            direction = Utility.GetMouseWorldPosition() - transform.position;
+            direction = Utility.NormalizeIntVector(direction);
+
+            AttackAction.Attack(direction);
+        }
+
+
     }
 
 }

@@ -19,6 +19,7 @@ public class MoveAction : BaseAction {
 
     private float   _moveLeftTime   = 0.0f;
     private float   _currJumpHeight = 0.0f;
+    private bool    _isInPlace  =   false;
 
     private Vector3 _startMovePosition  = Vector3.zero;
     private Vector3 _endMovePosition    = Vector3.zero;
@@ -85,7 +86,28 @@ public class MoveAction : BaseAction {
         int moveRow = (int)(_thisObject.Row + moveDir.x);
         int moveCol = (int)(_thisObject.Col + moveDir.y);
 
+        bool is_moving = false;
+
         if ( IsCanMove( moveRow, moveCol))
+        {
+            is_moving = true;
+        }
+        else if( IsCanMove( _thisObject.Row, _thisObject.Col))
+        {
+            _thisObject.MoveDirection = moveDir;
+            is_moving = true;
+            _isInPlace = true;
+
+            moveRow = _thisObject.Row;
+            moveCol = _thisObject.Col;
+
+            if (Utility.GetMainTargetCamera() != null)
+            {
+                Utility.GetMainTargetCamera().ShakeCamera(45.0f);
+            }
+        }
+
+        if ( is_moving)
         {
             LockObject();
 
@@ -110,12 +132,19 @@ public class MoveAction : BaseAction {
 
         Vector3 direction = endPosition - startPosition;
         direction.Normalize();
+
+        if ( _isInPlace)
+        {
+            direction = _thisObject.MoveDirection;
+        }
         
         UpdateAnimDir(ref direction);
     }
 
     protected virtual void OnEndMove()
     {
+        _isInPlace = false;
+
         UnLockObject();
 
         //if (OnMoveEndCallBack != null)
@@ -137,12 +166,24 @@ public class MoveAction : BaseAction {
 
     private bool IsCanMove( int row, int col)
     {
-        return !IsMoving() && TileManager.Get.IsCanMove(row, col);
+        return !IsMoving() && TileManager.Get.IsCanMove(row, col, _thisObject);
     }
 
     private bool IsMoving()
     {
         return _moveLeftTime > 0.0f;
+    }
+
+    public override bool IsCanDoAction()
+    {
+        var currAction = _thisObject.LockingAction;
+        if (currAction != null &&
+            currAction.GetType() == typeof(AttackAction))
+        {
+            return true;
+        }
+
+        return base.IsCanDoAction();
     }
 
 }

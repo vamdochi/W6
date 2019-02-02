@@ -36,6 +36,9 @@ public class AttackAction : BaseAction {
             var inputDir = InputManager.VecToDirForInput(_thisObject.MoveDirection);
             if (InputManager.Instance.IsPressKeyOnce(InputManager.InputAction.PLAYER_ATTACK, inputDir) )
             {
+                _thisObject.MoveDirection = Utility.GetMouseWorldPosition() - transform.position;
+                _thisObject.MoveDirection = Utility.NormalizeIntVector(_thisObject.MoveDirection);
+
                 _isPressContinueAttack = true;
             }
         }
@@ -129,28 +132,23 @@ public class AttackAction : BaseAction {
         int targetRow = (int)(_thisObject.Row + _thisObject.MoveDirection.x);
         int targetCol = (int)(_thisObject.Col + _thisObject.MoveDirection.y);
 
-        var targetObject = TileManager.Get.GetObject(targetRow, targetCol);
-        if (targetObject != null)
+        NormalDir direction = Utility.VecToDir(_thisObject.MoveDirection);
+
+        PlayAnimation(_currentAttackIndex, direction);
+        Invoke("EnableTriggerAttack", 0.05f);
+
+        bool IsNegative = _thisObject.MoveDirection.x < 0.0f;
+
+        if (IsNegative)
         {
-            NormalDir direction = Utility.VecToDir(_thisObject.MoveDirection);
-
-            PlayAnimation(_currentAttackIndex, direction);
-            Invoke("EnableTriggerAttack", 0.05f);
-
-            bool IsNegative = _thisObject.MoveDirection.x < 0.0f;
-
-            if (IsNegative)
-            {
-                _thisObject.GetSpriteRenderer().flipX = true;
-            }
-            else
-            {
-                _thisObject.GetSpriteRenderer().flipX = false;
-            }
-            return true;
+            _thisObject.GetSpriteRenderer().flipX = true;
         }
+        else
+        {
+            _thisObject.GetSpriteRenderer().flipX = false;
+        }
+        return true;
 
-        return false;
     }
 
     private void EndAttack()

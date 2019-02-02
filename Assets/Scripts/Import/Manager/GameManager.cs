@@ -19,14 +19,9 @@ public class GameManager : MonoBehaviour {
 
     }
 
-    // Update is called once per frame
-    void Update () {
-		
-	}
-
     public bool CreateObject( Object original, short row, short col)
     {
-        if( TileManager.Get.IsCanMove( row, col ))
+        if( TileManager.Get.IsCanMove( row, col, null ))
         {
             GameObject go = Instantiate(original,
                 TileManager.Get.GetTilePosition(row, col) + new Vector3(0, 0.1f, 0),

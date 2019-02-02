@@ -22,7 +22,7 @@ public class Tile : MonoBehaviour {
     public void ChangeSprite( Sprite sprite) { SpriteRenderer.sprite = sprite; }
 
     public bool IsCanMove()
-    {
+    {   
         if (Object == null)
             return true;
 
