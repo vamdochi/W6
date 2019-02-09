@@ -7,6 +7,7 @@ using UnityEngine;
 public class AttackAction : BaseAction {
 
     public WeaponInfo WeaponInfo;
+    public float    EnableContinueAttackTime = 0.1f;
 
     private bool    _isCanContinueAttack;
     private bool    _isPressContinueAttack;
@@ -136,6 +137,7 @@ public class AttackAction : BaseAction {
 
         PlayAnimation(_currentAttackIndex, direction);
         Invoke("EnableTriggerAttack", 0.05f);
+        Invoke("OnEnableSkipAnimation", EnableContinueAttackTime);
 
         bool IsNegative = _thisObject.MoveDirection.x < 0.0f;
 
