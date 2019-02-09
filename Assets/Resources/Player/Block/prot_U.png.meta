@@ -1,9 +1,9 @@
 fileFormatVersion: 2
-guid: 8d43055f3cabeb94a933c1a073ea54eb
+guid: 7e9cbe5af23a5304db63c1cb8d2f99ec
 TextureImporter:
   fileIDToRecycleName:
-    21300000: prot_D_0
-    21300002: prot_D_1
+    21300000: prot_U_0
+    21300002: prot_U_1
   externalObjects: {}
   serializedVersion: 7
   mipmaps:
@@ -33,7 +33,7 @@ TextureImporter:
   maxTextureSize: 2048
   textureSettings:
     serializedVersion: 2
-    filterMode: -1
+    filterMode: 0
     aniso: -1
     mipBias: -100
     wrapU: 1
@@ -86,7 +86,7 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: prot_D_0
+      name: prot_U_0
       rect:
         serializedVersion: 2
         x: 0
@@ -100,13 +100,13 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: f15743bce9c0cc14c8aca02a8a3bf80c
+      spriteID: b945b5e1059d2c54d8317f1fae9a5b67
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: prot_D_1
+      name: prot_U_1
       rect:
         serializedVersion: 2
         x: 84
@@ -120,7 +120,7 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: bf4e96e58fc03c9418d3d6e5c3bf5f47
+      spriteID: a2fdcfa0b8a6ad94aacf7e386af99b20
       vertices: []
       indices: 
       edges: []
@@ -128,7 +128,7 @@ TextureImporter:
     outline: []
     physicsShape: []
     bones: []
-    spriteID: b1783d5f29ef59f46acb001c4483e617
+    spriteID: 2ef1cc3632ed6064fb84b58716df9fae
     vertices: []
     indices: 
     edges: []

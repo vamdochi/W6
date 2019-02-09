@@ -11,6 +11,9 @@ public abstract class BaseAction : MonoBehaviour{
 
     public CustomAnimationController CustomAnimController;
     public float ActionAnimTime = 1.0f;
+    public float ActionCoolTime = 0.0f;
+
+    protected float _curr_cooltime = 0.0f;
 
     protected AnimationInfos _animInfos;
     protected BaseObject _thisObject;
@@ -23,6 +26,14 @@ public abstract class BaseAction : MonoBehaviour{
         _animInfos = new AnimationInfos(CustomAnimController);
         _thisObject          = GetComponent<BaseObject>();
         LoadResource();
+    }
+
+    private void Update()
+    {
+        if( _curr_cooltime > 0.0f )
+        {
+            _curr_cooltime -= Time.deltaTime;
+        }
     }
     protected string GetResourcePath()
     {
@@ -47,6 +58,7 @@ public abstract class BaseAction : MonoBehaviour{
     public void UnLockObject()
     {
         _thisObject.LockingAction = null;
+        _curr_cooltime = ActionCoolTime;
     }
 
 
@@ -67,7 +79,7 @@ public abstract class BaseAction : MonoBehaviour{
 
     public virtual bool IsCanDoAction()
     {
-        return !_thisObject.IsLockAction();
+        return !_thisObject.IsLockAction() && _curr_cooltime <= 0.0f;
     }
 
     public virtual bool OnCancelAction()

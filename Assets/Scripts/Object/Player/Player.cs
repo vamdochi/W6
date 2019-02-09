@@ -7,6 +7,7 @@ public class Player : BaseObject{
     public MoveAction MoveAction = null;
     public IdleAction IdleAction = null;
     public RollAction RollAction = null;
+    public BlockAction BlockAction = null;
     public AttackAction AttackAction = null;
     public KnockBackAction KnockBackAction = null;
     public BackStepAction BackStepAction = null;
@@ -40,6 +41,8 @@ public class Player : BaseObject{
         if (BackStepAction == null)
             BackStepAction = GetComponent<BackStepAction>();
 
+        if (BlockAction == null)
+            BlockAction = GetComponent<BlockAction>();
 
         var mainCamera = Camera.main.GetComponent<TargetCamera>();
 
@@ -58,7 +61,7 @@ public class Player : BaseObject{
 
         if ( Input.GetKeyDown(KeyCode.Space))
         {
-            _animator.SetTrigger("Attack");
+            BlockAction.Block();
         }
     }
     
@@ -247,8 +250,6 @@ public class Player : BaseObject{
 
             AttackAction.Attack(direction);
         }
-
-
     }
 
 }

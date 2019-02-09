@@ -6,6 +6,7 @@ public class InputManager : SingleTon<InputManager> {
 
     public enum InputDirection
     {
+        ALL = -1,
         LEFT,
         RIGHT,
         DOWN,
@@ -18,6 +19,7 @@ public class InputManager : SingleTon<InputManager> {
         PLAYER_MOVE = 0,
         PLAYER_ROLL,
         PLAYER_ATTACK,
+        PLAYER_BLOCK,
         MAX
     }
 
@@ -62,15 +64,24 @@ public class InputManager : SingleTon<InputManager> {
             _keyInput[i].Allocate(InputDirection.MAX);
         }
         
-        RegisterInputKey(InputAction.PLAYER_ATTACK, InputDirection.TOP, KeyCode.Mouse0);
-        RegisterInputKey(InputAction.PLAYER_ATTACK, InputDirection.LEFT, KeyCode.Mouse0);
-        RegisterInputKey(InputAction.PLAYER_ATTACK, InputDirection.DOWN, KeyCode.Mouse0);
-        RegisterInputKey(InputAction.PLAYER_ATTACK, InputDirection.RIGHT, KeyCode.Mouse0);
+        RegisterInputKey(InputAction.PLAYER_ATTACK, InputDirection.ALL, KeyCode.Mouse0);
+
+        RegisterInputKey(InputAction.PLAYER_BLOCK,  InputDirection.ALL, KeyCode.Space);
 
     }
 	
     public void RegisterInputKey( InputAction key, InputDirection dir, KeyCode keyCode)
     {
-        _keyInput.Get(key).Set(dir, keyCode );
+        if( dir == InputDirection.ALL)
+        {
+            _keyInput.Get(key).Set(InputDirection.TOP, keyCode);
+            _keyInput.Get(key).Set(InputDirection.DOWN, keyCode);
+            _keyInput.Get(key).Set(InputDirection.LEFT, keyCode);
+            _keyInput.Get(key).Set(InputDirection.RIGHT, keyCode);
+        }
+        else
+        {
+            _keyInput.Get(key).Set(dir, keyCode);
+        }
     }
 }
