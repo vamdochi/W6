@@ -2,11 +2,13 @@ fileFormatVersion: 2
 guid: b40dfdfb9bf0b054c89ac954e837ed36
 TextureImporter:
   fileIDToRecycleName:
-    21300000: Attack_D_2_0
-    21300002: Attack_D_2_1
-    21300004: Attack_D_2_2
-    21300006: Attack_D_2_3
-    21300008: Attack_D_2_4
+    21300000: attack_D_2_0
+    21300002: attack_D_2_1
+    21300004: attack_D_2_2
+    21300006: attack_D_2_3
+    21300008: attack_D_2_4
+    21300010: attack_D_2_5
+    21300012: attack_D_2_6
   externalObjects: {}
   serializedVersion: 7
   mipmaps:
@@ -89,7 +91,7 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Attack_D_2_0
+      name: attack_D_2_0
       rect:
         serializedVersion: 2
         x: 0
@@ -103,13 +105,13 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: ee29cd2cc6cd91244a3e4c53d7229fcd
+      spriteID: 82e7500665d9eca4d92b0f085e23ccb0
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Attack_D_2_1
+      name: attack_D_2_1
       rect:
         serializedVersion: 2
         x: 84
@@ -123,13 +125,13 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 71113841ed687f843ba8db511cf03f9b
+      spriteID: f1d74c3c0556ec147a100f1496247c72
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Attack_D_2_2
+      name: attack_D_2_2
       rect:
         serializedVersion: 2
         x: 168
@@ -143,13 +145,13 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: a2fbc6e4848555447bb35b997c089d9b
+      spriteID: 0bbf84d3113a2594ab17bc05d785d634
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Attack_D_2_3
+      name: attack_D_2_3
       rect:
         serializedVersion: 2
         x: 252
@@ -163,13 +165,13 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: b067e6a32d70a6e40b32b16efe08fc91
+      spriteID: 063287ffe05178a438525b571fe8d6eb
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Attack_D_2_4
+      name: attack_D_2_4
       rect:
         serializedVersion: 2
         x: 336
@@ -183,7 +185,47 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 7316c4f5ad6402b46b9941897492ba30
+      spriteID: 464b7c087057a50408b43fa8e1418a3c
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: attack_D_2_5
+      rect:
+        serializedVersion: 2
+        x: 420
+        y: 0
+        width: 84
+        height: 84
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 4b10fcffd923b0a4d97e0c068267e23f
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: attack_D_2_6
+      rect:
+        serializedVersion: 2
+        x: 504
+        y: 0
+        width: 84
+        height: 84
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 5cd3f75ef325ef44896af5b4de847ba7
       vertices: []
       indices: 
       edges: []
@@ -191,7 +233,7 @@ TextureImporter:
     outline: []
     physicsShape: []
     bones: []
-    spriteID: fe60ba7ea5b2b8048929047713de1b5a
+    spriteID: 948e480b8df6a2c44946ef35ed16113c
     vertices: []
     indices: 
     edges: []
