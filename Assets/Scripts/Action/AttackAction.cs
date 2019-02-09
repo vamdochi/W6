@@ -65,8 +65,6 @@ public class AttackAction : BaseAction {
 
     public void OnAttack()
     {
-        Debug.Log("Attack");
-
         if (_isCanHandleTriggerAttack)
         {
             _isCanHandleTriggerAttack = false;
