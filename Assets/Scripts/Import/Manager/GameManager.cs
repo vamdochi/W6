@@ -7,7 +7,7 @@ public class GameManager : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
         const string playerPath = "Prefab/Character/Player/Player";
-        const string rabbitPath = "Monster/rabbit/rabbit";
+        const string rabbitPath = "Prefab/Monster/slime";
         
         CreateObject(Resources.Load(playerPath), 13, 13);
         short gen = 14;

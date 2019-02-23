@@ -51,7 +51,8 @@ public class CustomAnimationController : MonoBehaviour {
 
         if(clip == null)
         {
-            Debug.LogError("AddClip() : animationClip Path is wrong Path");
+            string msg = "AddClip() : animationClip Path is wrong Path = " + animationPath;
+            Debug.LogError(msg);
             return -1;
         }
         return _simpleAnimation.AddClip(clip, animationPath);

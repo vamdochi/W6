@@ -16,6 +16,7 @@ public class MoveAction : BaseAction {
     public float speed { get; set; }
     public float MoveTimeSec = 1.0f;
     public float MaxJumpHeight = 0.1f;
+    public bool  canTurnInPlace = false;
 
     private float   _moveLeftTime   = 0.0f;
     private float   _currJumpHeight = 0.0f;
@@ -92,7 +93,7 @@ public class MoveAction : BaseAction {
         {
             is_moving = true;
         }
-        else if( IsCanMove( _thisObject.Row, _thisObject.Col))
+        else if( canTurnInPlace && IsCanMove( _thisObject.Row, _thisObject.Col))
         {
             _thisObject.MoveDirection = moveDir;
             is_moving = true;

@@ -8,6 +8,7 @@ public class Monster : BaseObject {
     public float MoveDelaySec = 10.0f;
     public IdleAction IdleAction = null;
     public MoveAction MoveAction = null;
+    public AttackAction AttackAction = null;
 
     // Use this for initialization
     void Start () {
@@ -17,6 +18,9 @@ public class Monster : BaseObject {
 
         if (IdleAction == null)
             IdleAction = GetComponent<IdleAction>();
+
+        if (AttackAction == null)
+            AttackAction = GetComponent<AttackAction>();
 
         base.Initialize();
         StartCoroutine(MoveCorutine());
@@ -52,7 +56,11 @@ public class Monster : BaseObject {
                 {
                     MoveDirection = new Vector3(prevMoveDirection.x , random , prevMoveDirection.z);
                 }
-                MoveAction.Move(MoveDirection);
+
+                if( !MoveAction.Move(MoveDirection) )
+                {
+                    AttackAction.Attack(MoveDirection);
+                }
             }
         }
     }

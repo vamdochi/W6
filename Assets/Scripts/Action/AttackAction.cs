@@ -29,13 +29,14 @@ public class AttackAction : BaseAction {
             }
         }
     }
+
     private void Update()
     {
         if( _isCanContinueAttack &&
             _isPressContinueAttack == false) 
         {
             var inputDir = InputManager.VecToDirForInput(_thisObject.MoveDirection);
-            if (InputManager.Instance.IsPressKeyOnce(InputManager.InputAction.PLAYER_ATTACK, inputDir) )
+            if (_thisObject as Player && InputManager.Instance.IsPressKeyOnce(InputManager.InputAction.PLAYER_ATTACK, inputDir) )
             {
                 _thisObject.MoveDirection = Utility.GetMouseWorldPosition() - transform.position;
                 _thisObject.MoveDirection = Utility.NormalizeIntVector(_thisObject.MoveDirection);
