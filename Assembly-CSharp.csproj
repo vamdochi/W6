@@ -70,6 +70,7 @@
     <Compile Include="Assets\Scripts\Action\AttackAction.cs" />
     <Compile Include="Assets\Scripts\Action\BackStepAction.cs" />
     <Compile Include="Assets\Scripts\Action\BaseAction.cs" />
+    <Compile Include="Assets\Scripts\Action\BlockAction.cs" />
     <Compile Include="Assets\Scripts\Action\HittedAction.cs" />
     <Compile Include="Assets\Scripts\Action\IdleAction.cs" />
     <Compile Include="Assets\Scripts\Action\KnockBackAction.cs" />
