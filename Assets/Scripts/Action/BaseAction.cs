@@ -44,10 +44,17 @@ public abstract class BaseAction : MonoBehaviour{
     {
         CustomAnimController.PlayAnimation(this, _animInfos.GetIndex(index, eDir), ActionAnimTime);
     }
+
     protected void ResetAnimationTime<TDir>( int index, TDir eDir)
     {
         CustomAnimController.ResetAnimationTime( _animInfos.GetIndex(index, eDir));
+    }
 
+    public virtual void DoImpactMotion()
+    {
+        NormalDir direction = Utility.VecToDir(_thisObject.MoveDirection);
+
+        CustomAnimController.StartImpactMotion(_animInfos.GetIndex(0, direction), ActionAnimTime, this);
     }
 
     public void LockObject()

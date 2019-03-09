@@ -122,6 +122,13 @@ public class AttackAction : BaseAction {
 
     }
 
+    public override void DoImpactMotion()
+    {
+        NormalDir direction = Utility.VecToDir(_thisObject.MoveDirection);
+
+        CustomAnimController.StartImpactMotion(_animInfos.GetIndex(_currentAttackIndex, direction), ActionAnimTime, this);
+    }
+
     public void EnableTriggerAttack()
     {
         _isCanHandleTriggerAttack = true;
@@ -168,4 +175,5 @@ public class AttackAction : BaseAction {
         _isPressContinueAttack  = false;
         _isCanContinueAttack    = false;
     }
+
 }

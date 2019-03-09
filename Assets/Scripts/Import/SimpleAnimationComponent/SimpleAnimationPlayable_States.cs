@@ -381,7 +381,7 @@ public partial class SimpleAnimationPlayable : PlayableBehaviour
             return m_States[index];
         }
 
-        public void EnableState(int index)
+        public void EnableState(int index, float currentTime = 0.0f)
         {
             StateInfo state = m_States[index];
             if (state.enabled)
@@ -389,7 +389,7 @@ public partial class SimpleAnimationPlayable : PlayableBehaviour
 
             state.enabledDirty = true;
             state.enabled = true;
-            state.playable.SetTime(0.0f);
+            state.playable.SetTime(currentTime);
         }
 
         public void DisableState(int index)

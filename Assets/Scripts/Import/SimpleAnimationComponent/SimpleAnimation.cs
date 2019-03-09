@@ -111,6 +111,11 @@ public partial class SimpleAnimation: MonoBehaviour
         m_Playable.StopAll();
     }
 
+    public float GetCurrentTime( int index)
+    {
+        return m_Playable.GetCurrentTime(index);
+    }
+
     public void Stop(string stateName)
     {
         m_Playable.Stop(stateName);
@@ -158,6 +163,13 @@ public partial class SimpleAnimation: MonoBehaviour
         m_Animator.enabled = true;
         Kick();
         return m_Playable.Play(index, animTime);
+    }
+
+    public bool Play(int index, float animTime, float currentTime)
+    {
+        m_Animator.enabled = true;
+        Kick();
+        return m_Playable.Play(index, animTime, currentTime);
     }
 
     public bool Play(string stateName)

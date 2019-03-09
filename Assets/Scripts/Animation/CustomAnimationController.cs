@@ -45,6 +45,32 @@ public class CustomAnimationController : MonoBehaviour {
         _simpleAnimation.RemoveClip(index);
     }
 
+    public void StartImpactMotion( int index, float actionTime, BaseAction targetAction )
+    {
+        float saveTime = _simpleAnimation.GetCurrentTime(index);
+
+        StartCoroutine(DriveImpact(index, saveTime, actionTime, targetAction));
+
+        _simpleAnimation.Stop();
+    }
+
+    private IEnumerator DriveImpact( int index , float saveTime, float actionTime, BaseAction targetAction)
+    {
+        yield return new WaitForSeconds(0.1f);
+
+        if(targetAction == _driveAction)
+        {
+            _simpleAnimation.Play(index, actionTime, saveTime);
+
+        }
+    }
+
+
+    private void FinishImpact()
+    {
+        _simpleAnimation.Play();
+    }
+
     public int AddClip( out AnimationClip clip, string animationPath )
     {
         clip = Resources.Load(animationPath, typeof(AnimationClip)) as AnimationClip;

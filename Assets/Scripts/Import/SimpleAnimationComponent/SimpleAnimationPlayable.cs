@@ -175,7 +175,7 @@ public partial class SimpleAnimationPlayable : PlayableBehaviour
         return Play(state.index);
     }
 
-    public bool Play(int index, float animTime = 0.0f)
+    public bool Play(int index, float animTime = 0.0f, float currentTime = 0.0f)
     {
         StateInfo doState = m_States[index];
 
@@ -197,7 +197,7 @@ public partial class SimpleAnimationPlayable : PlayableBehaviour
 
             if (state.index == index)
             { 
-                m_States.EnableState(i);
+                m_States.EnableState(i, currentTime);
                 m_States.SetInputWeight(i, 1f);
             }
             else
@@ -305,6 +305,11 @@ public partial class SimpleAnimationPlayable : PlayableBehaviour
         {
             RemoveClones(state);
         }
+    }
+
+    public float GetCurrentTime( int index)
+    {
+        return (float)m_States[index].playable.GetTime();
     }
 
     public bool StopAll()

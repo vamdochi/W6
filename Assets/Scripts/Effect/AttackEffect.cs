@@ -78,5 +78,19 @@ public class AttackEffect : MonoBehaviour {
 
         if ( Owner != null)
             Owner.OnHit();
+
+        if (_animator != null)
+        {
+            _animator.enabled = false;
+            Invoke("OnEnableAnimator", 0.1f);
+        }
+    }
+
+    private void OnEnableAnimator()
+    {
+        if( _animator != null)
+        {
+            _animator.enabled = true;
+        }
     }
 }

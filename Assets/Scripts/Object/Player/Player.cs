@@ -17,9 +17,10 @@ public class Player : BaseObject{
     private KeyCode _lastInputKey = KeyCode.None;
     private const float _rollTimeSec    = 0.5f;
 
+    private float TimeScaleForDebug = 1.0f;
+
 	// Use this for initialization
 	void Start () {
-        // Time.timeScale = 0.5f;
         base.Initialize();
 
         // Load Action Func으로 뺴세요
@@ -63,6 +64,18 @@ public class Player : BaseObject{
         {
             BlockAction.Block();
         }
+
+        if( Input.GetKeyDown( KeyCode.RightBracket))
+        {
+            TimeScaleForDebug += 0.1f;
+        }
+        else if( Input.GetKeyDown(KeyCode.LeftBracket))
+        {
+            TimeScaleForDebug -= 0.1f;
+        }
+
+        TimeScaleForDebug = Mathf.Clamp(TimeScaleForDebug, 0.1f, 10.0f);
+        Time.timeScale = TimeScaleForDebug;
     }
     
 	private void InputUpdate()

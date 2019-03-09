@@ -225,5 +225,10 @@ public class BaseObject : MonoBehaviour {
         {
             Utility.GetMainTargetCamera().ShakeCamera(60.0f);
         }
+
+        if(LockingAction != null)
+        {
+            LockingAction.DoImpactMotion();
+        }
     }
 }
