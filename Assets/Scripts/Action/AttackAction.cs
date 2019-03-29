@@ -126,7 +126,12 @@ public class AttackAction : BaseAction {
     {
         NormalDir direction = Utility.VecToDir(_thisObject.MoveDirection);
 
-        CustomAnimController.StartImpactMotion(_animInfos.GetIndex(_currentAttackIndex, direction), ActionAnimTime, this);
+        int index = _animInfos.GetIndex(_currentAttackIndex, direction);
+
+        if( index != -1 )
+        {
+            CustomAnimController.StartImpactMotion(index, ActionAnimTime, this);
+        }
     }
 
     public void EnableTriggerAttack()
